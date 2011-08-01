@@ -1,2 +1,6 @@
 [
+	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "words", "forward": true} },
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "words", "forward": true, "extend": true} },
+	{ "keys": ["alt+c"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["alt+f4"], "command": "hot_exit" }
 ]
