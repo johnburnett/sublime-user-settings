@@ -3,8 +3,6 @@ import webbrowser
 
 import sublime, sublime_plugin
 
-k_max_urls_to_open = 1
-
 # URL regex from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
 url_re = re.compile(r"""
 (?P<url>                                # Capture 1: entire matched URL
@@ -33,21 +31,17 @@ url_re = re.compile(r"""
   )
 )""", re.VERBOSE | re.MULTILINE)
 
-class open_urls_in_selection(sublime_plugin.TextCommand):
+class open_url_in_selection(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        for ii, url in enumerate(self.iter_urls_in_sel()):
+        url = self.get_url_in_sel()
+        if url:
             webbrowser.open_new_tab(url)
-            if ii == (k_max_urls_to_open - 1):
-                break
 
     def is_enabled(self):
-        for url in self.iter_urls_in_sel():
-            return True
-        return False
+        return True if self.get_url_in_sel() else False
 
-    def iter_urls_in_sel(self):
-        urls = set()
+    def get_url_in_sel(self):
         for region in self.view.sel():
             fullRegion = self.view.line(region)
             for lineRegion in self.view.split_by_newlines(fullRegion):
@@ -56,7 +50,4 @@ class open_urls_in_selection(sublime_plugin.TextCommand):
                     span = match.span('url')
                     matchRegion = sublime.Region(span[0] + lineRegion.begin(), span[1] + lineRegion.begin())
                     if region.intersects(matchRegion):
-                        url = match.group('url')
-                        if url not in urls:
-                            urls.add(url)
-                            yield url
+                        return match.group('url')
