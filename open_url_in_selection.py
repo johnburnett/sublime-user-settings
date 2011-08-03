@@ -1,3 +1,5 @@
+"""If the point is on or next to a URL, open it in a browser tab."""
+
 import re
 import webbrowser
 
@@ -43,11 +45,12 @@ class open_url_in_selection(sublime_plugin.TextCommand):
 
     def get_url_in_sel(self):
         for region in self.view.sel():
-            fullRegion = self.view.line(region)
-            for lineRegion in self.view.split_by_newlines(fullRegion):
+            searchRegion = self.view.line(region)
+            paddedRegion = sublime.Region(region.begin() - 1, region.end() + 1)
+            for lineRegion in self.view.split_by_newlines(searchRegion):
                 line = self.view.substr(lineRegion)
                 for match in url_re.finditer(line):
                     span = match.span('url')
                     matchRegion = sublime.Region(span[0] + lineRegion.begin(), span[1] + lineRegion.begin())
-                    if region.intersects(matchRegion):
+                    if paddedRegion.intersects(matchRegion):
                         return match.group('url')
