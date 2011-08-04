@@ -1,0 +1,13 @@
+[
+    {
+        "caption": "My",
+        "mnemonic": "M",
+        "id": "my",
+        "children":
+        [
+            { "command": "open_url_in_selection", "mnemonic": "U" },
+            { "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
+            { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" }
+        ]
+    }
+]
