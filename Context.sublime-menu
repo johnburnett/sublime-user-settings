@@ -1,5 +1,5 @@
 [
-    { "command": "open_url_in_selection", "caption": "Open URL" },
+    { "command": "open_url_in_selection" },
     { "command": "open_cmd_here", "caption": "Open Cmd Here" },
     { "command": "open_bash_here", "caption": "Open Bash Here" }
 ]
