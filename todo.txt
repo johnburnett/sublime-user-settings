@@ -1,3 +1,5 @@
+-ctrl-[ behavior (current ctrl-m doesn't match anything besides braces)
+
 http://www.sublimetext.com/docs/2/api_reference.html
 http://www.sublimetext.com/docs/api-reference
 http://www.sublimetext.com/docs/plugin-examples
