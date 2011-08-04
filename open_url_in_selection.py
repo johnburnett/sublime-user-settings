@@ -43,6 +43,13 @@ class open_url_in_selection(sublime_plugin.TextCommand):
     def is_enabled(self):
         return True if self.get_url_in_sel() else False
 
+    def description(self):
+        url = self.get_url_in_sel()
+        if url:
+            return 'Open URL "%s"' % url
+        else:
+            return 'Open URL'
+
     def get_url_in_sel(self):
         for region in self.view.sel():
             searchRegion = self.view.line(region)
