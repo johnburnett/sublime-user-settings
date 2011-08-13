@@ -1,5 +1,4 @@
 [
-	{ "command": "open_file_browser_here", "caption": "Open File Browser Here", "mnemonic": "F" },
 	{ "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
 	{ "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
 	{ "command": "open_url_in_selection", "mnemonic": "U" }
