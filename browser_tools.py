@@ -1,9 +1,11 @@
-"""If the point is on or next to a URL, open it in a browser tab."""
-
+import os
 import re
+import urllib
 import webbrowser
 
 import sublime, sublime_plugin
+
+browser_file_exts = set(('.html', '.htm', '.css', '.xml'))
 
 # URL regex from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
 url_re = re.compile(r"""
@@ -34,6 +36,7 @@ url_re = re.compile(r"""
 )""", re.VERBOSE | re.MULTILINE)
 
 class open_url_in_selection(sublime_plugin.TextCommand):
+    """If the point is on or next to a URL, open it in a browser tab."""
 
     def run(self, edit):
         url = self.get_url_in_sel()
@@ -61,3 +64,26 @@ class open_url_in_selection(sublime_plugin.TextCommand):
                     matchRegion = sublime.Region(span[0] + lineRegion.begin(), span[1] + lineRegion.begin())
                     if paddedRegion.intersects(matchRegion):
                         return match.group('url')
+
+
+class open_file_in_browser(sublime_plugin.TextCommand):
+    """Open the current file in a web browser if it's a valid file type."""
+
+    def run(self, edit):
+        file_path = self.get_current_file()
+        if file_path:
+            url = 'file:' + urllib.pathname2url(file_path)
+            webbrowser.open_new_tab(url)
+
+    def is_enabled(self):
+        return self.get_current_file() != None
+
+    def get_current_file(self):
+        file_path = self.view.file_name()
+        if file_path:
+            file_path = os.path.abspath(file_path)
+            if os.path.isfile(file_path):
+                name, ext = os.path.splitext(file_path)
+                if ext in browser_file_exts:
+                    return file_path
+        return None
