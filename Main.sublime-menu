@@ -9,7 +9,16 @@
             { "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
             { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
             { "command": "open_url_in_selection", "mnemonic": "U" },
-            { "command": "open_file_in_browser", "caption": "Open File In Web Browser", "mnemonic": "W" }
+            { "command": "open_file_in_browser", "caption": "Open File In Web Browser", "mnemonic": "W" },
+            { "caption": "-" },
+            {
+                "caption": "Dev",
+                "id": "dev",
+                "children":
+                [
+                    { "command": "toggle_command_logging" }
+                ]
+            }
         ]
     }
 ]
