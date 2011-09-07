@@ -2,10 +2,6 @@
 // are overridden in turn by file type specific settings. Place your settings
 // here, to ensure they're preserved when upgrading.
 {
-	"font_face": "Courier New",
-	"font_size": 12,
-	// "font_face": "Arial",
-	// "font_size": 12,
 	"color_scheme": "Packages/Color Scheme - Default/IDLE.tmTheme",
 	"draw_minimap_border": true,
 	"ensure_newline_at_eof_on_save": true,
