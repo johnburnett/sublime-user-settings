@@ -1,10 +1,5 @@
 -ctrl-[ behavior (current ctrl-m doesn't match anything besides braces)
--up when there is a selection doesn't move up
 -textpad cursor movement
 
--"Sublime Text 2/Packages/Text/Plain text.sublime-options" - references non-existant file
-
-http://www.sublimetext.com/docs/2/api_reference.html
 http://www.sublimetext.com/docs/api-reference
 http://www.sublimetext.com/docs/plugin-examples
-
