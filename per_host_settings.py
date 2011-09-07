@@ -1,26 +1,29 @@
+import json
+import os
+import socket
+
 import sublime
 import sublime_plugin
-import socket
 
 class per_host_settings(sublime_plugin.EventListener):
     def __init__(self):
-        self._per_host_settings = {
-            'lapmonkey': {
-                'Base File.sublime-settings': {
-                    'font_size': 14
-                }
-            }
-        }
         self._applying = False
 
     def install_callbacks(self):
         callbacks = []
-        print "Installing per-host settings callbacks"
         if not globals().has_key('_per_host_settings_callbacks_installed'):
             try:
                 hostname = socket.gethostname().lower()
-                host_settings = self._per_host_settings.get(hostname, None)
+                packages_path = sublime.packages_path()
+                host_settings_file = os.path.join(packages_path, "User", "per_host_%s.sublime-settings" % (hostname,))
+                try:
+                    with open(host_settings_file) as f:
+                        host_settings = json.load(f)
+                except:
+                    host_settings = None
+
                 if host_settings:
+                    print 'Installing per-host settings from "%s"' % (host_settings_file,)
                     for base_name, settings_values in host_settings.iteritems():
                         settings = sublime.load_settings(base_name)
                         for name, value in settings_values.iteritems():
@@ -37,7 +40,6 @@ class per_host_settings(sublime_plugin.EventListener):
         # Apply once on startup, before the settings on_change callbacks
         # have a chance to run.
         callbacks = self.install_callbacks()
-        print "Applying all per-host settings"
         for callback in callbacks:
             callback()
         sublime_plugin.all_callbacks['on_activated'].remove(self)
