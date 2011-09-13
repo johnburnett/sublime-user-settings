@@ -15,7 +15,7 @@ class per_host_settings(sublime_plugin.EventListener):
             try:
                 hostname = socket.gethostname().lower()
                 packages_path = sublime.packages_path()
-                host_settings_file = os.path.join(packages_path, "User", "per_host_%s.sublime-settings" % (hostname,))
+                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.%s.sublime-settings" % (hostname,))
                 try:
                     with open(host_settings_file) as f:
                         host_settings = json.load(f)
