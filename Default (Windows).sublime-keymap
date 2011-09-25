@@ -1,0 +1,29 @@
+[
+	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "words", "forward": true} },
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "words", "forward": true, "extend": true} },
+	{ "keys": ["alt+f4"], "command": "hot_exit" },
+
+	// Find panel key bindings
+	{ "keys": ["alt+n"], "command": "find_next", "context":
+		[{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+	},
+	{ "keys": ["alt+p"], "command": "find_prev", "context":
+		[{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+	},
+
+	// Replace panel key bindings
+	{ "keys": ["alt+n"], "command": "find_next", "context":
+		[{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+	},
+	{ "keys": ["alt+p"], "command": "find_prev", "context":
+		[{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+	},
+
+	// Incremental find panel key bindings
+	{ "keys": ["alt+n"], "command": "hide_panel", "context":
+		[{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+	},
+	{ "keys": ["alt+p"], "command": "find_prev", "context":
+		[{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+	}
+]
