@@ -2,5 +2,6 @@
 // when upgrading
 {
 	"theme": "Soda Light.sublime-theme",
-	"scroll_speed": 0.0
+	"scroll_speed": 0.0,
+	"highlight_modified_tabs": true
 }
