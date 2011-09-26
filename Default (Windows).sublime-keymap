@@ -1,7 +1,6 @@
 [
 	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "words", "forward": true} },
 	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "words", "forward": true, "extend": true} },
-	{ "keys": ["alt+f4"], "command": "hot_exit" },
 
 	// Find panel key bindings
 	{ "keys": ["alt+n"], "command": "find_next", "context":
