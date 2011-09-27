@@ -11,6 +11,8 @@
             { "command": "open_url_in_selection", "mnemonic": "U" },
             { "command": "open_file_in_browser", "caption": "Open File In Web Browser", "mnemonic": "W" },
             { "caption": "-" },
+            { "command": "copy_unique_lines", "caption": "Copy Unique Lines" },
+            { "caption": "-" },
             {
                 "caption": "Dev",
                 "id": "dev",
