@@ -9,7 +9,7 @@ class toggle_command_logging(sublime_plugin.WindowCommand):
         self.logEnabled = not self.logEnabled
         sublime.log_commands(self.logEnabled)
         if self.logEnabled:
-            self.window.run_command('show_panel', {'panel': 'console'} )
+            self.window.run_command('show_panel', {'panel': 'console', 'toggle': False} )
         else:
             self.window.run_command('hide_panel', {'panel': 'console'} )
 
