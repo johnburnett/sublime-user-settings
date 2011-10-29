@@ -1,0 +1,5 @@
+{
+	"draw_outlined": false,
+	"highlight_when_selection_is_empty": true,
+	"color_scope_name" : "wordhighlight"
+}

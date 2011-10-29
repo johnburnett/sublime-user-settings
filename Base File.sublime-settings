@@ -2,7 +2,7 @@
 // are overridden in turn by file type specific settings. Place your settings
 // here, to ensure they're preserved when upgrading.
 {
-	"color_scheme": "Packages/Color Scheme - Default/IDLE.tmTheme",
+	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
 	"ensure_newline_at_eof_on_save": true,
 	"highlight_line": true,
