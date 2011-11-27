@@ -4,10 +4,10 @@ if __name__ != '__main__':
     import sublime, sublime_plugin
 
     class file_info_status_bar(sublime_plugin.EventListener):
-        def on_modified(self, view):
+        def _update(self, view):
             view.set_status('file_info', view.line_endings() + ', ' + view.encoding())
-    file_info_status_bar.on_load = file_info_status_bar.on_modified
-    file_info_status_bar.on_post_save = file_info_status_bar.on_modified
+    for meth in ['on_modified', 'on_load', 'on_post_save']:
+        setattr(file_info_status_bar, meth, file_info_status_bar._update)
 else:
     # Test to see how Sublime deals with files containing mixed line endings.
     # Behavior seems to be:
