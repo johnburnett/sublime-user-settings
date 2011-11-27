@@ -1,12 +1,13 @@
-"""Show the current line ending mode in the status bar."""
+"""Show current file info in the status bar (line ending, encoding, etc)."""
 
 if __name__ != '__main__':
-    import sublime, sublime_plugin
+    import sublime_plugin
 
     class file_info_status_bar(sublime_plugin.EventListener):
         def _update(self, view):
             view.set_status('file_info', view.line_endings() + ', ' + view.encoding())
-    for meth in ['on_modified', 'on_load', 'on_post_save']:
+
+    for meth in ('on_modified', 'on_load', 'on_post_save'):
         setattr(file_info_status_bar, meth, file_info_status_bar._update)
 else:
     # Test to see how Sublime deals with files containing mixed line endings.
