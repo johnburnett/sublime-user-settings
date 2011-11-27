@@ -3,12 +3,14 @@
 if __name__ != '__main__':
     import sublime, sublime_plugin
 
-    class line_endings_status_bar(sublime_plugin.EventListener):
+    class file_info_status_bar(sublime_plugin.EventListener):
         def on_modified(self, view):
-            view.set_status('line_endings', view.line_endings())
-    line_endings_status_bar.on_load = line_endings_status_bar.on_modified
+            view.set_status('file_info', view.line_endings() + ', ' + view.encoding())
+    file_info_status_bar.on_load = file_info_status_bar.on_modified
+    file_info_status_bar.on_post_save = file_info_status_bar.on_modified
 else:
-    # Test code to see how Sublime deals with files with mixed line endings.
+    # Test to see how Sublime deals with files containing mixed line endings.
+    # Behavior seems to be:
     # On open, a file's line ending mode is auto-detected:
     # - If the file has any LF's, it's Unix
     # - If the file is all CR's, it's Mac
