@@ -16,7 +16,8 @@
                 "id": "dev",
                 "children":
                 [
-                    { "command": "toggle_command_logging" }
+                    { "command": "toggle_command_logging" },
+                    { "command": "open_bash_packages" }
                 ]
             }
         ]
