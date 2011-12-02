@@ -34,7 +34,7 @@ class open_shell_here(sublime_plugin.TextCommand):
 class open_cmd_here(open_shell_here):
 
     def is_enabled(self):
-        return sys.platform == 'win32' and super(self.__class__, self).is_enabled()
+        return sys.platform == 'win32' and super(open_cmd_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_path):
         subprocess.Popen(['cmd.exe', '/k', 'pushd', dir_path], shell=False)
@@ -43,7 +43,7 @@ class open_cmd_here(open_shell_here):
 class open_bash_here(open_shell_here):
 
     def is_enabled(self):
-        return sys.platform == 'win32' and super(self.__class__, self).is_enabled()
+        return sys.platform == 'win32' and super(open_bash_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_path):
         cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
@@ -51,3 +51,9 @@ class open_bash_here(open_shell_here):
 
         cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
         subprocess.Popen(cmd)
+
+
+class open_bash_packages(open_bash_here):
+
+    def get_dir_and_file(self):
+        return (sublime.packages_path(), None)
