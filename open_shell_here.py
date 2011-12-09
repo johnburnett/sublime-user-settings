@@ -4,6 +4,15 @@ import sys
 
 import sublime, sublime_plugin
 
+
+def open_bash(dir_path):
+    cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
+    bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
+
+    cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
+    subprocess.Popen(cmd)
+
+
 class open_shell_here(sublime_plugin.TextCommand):
 
     def run(self, edit):
@@ -46,14 +55,11 @@ class open_bash_here(open_shell_here):
         return sys.platform == 'win32' and super(open_bash_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_path):
-        cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
-        bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
-
-        cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
-        subprocess.Popen(cmd)
+        open_bash(dir_path)
 
 
-class open_bash_packages(open_bash_here):
+class open_bash_packages(sublime_plugin.ApplicationCommand):
 
-    def get_dir_and_file(self):
-        return (sublime.packages_path(), None)
+    def run(self):
+        packages_path = os.path.abspath(sublime.packages_path())
+        open_bash(packages_path)
