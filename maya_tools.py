@@ -5,15 +5,14 @@ import traceback
 
 import sublime, sublime_plugin
 
-"""The port number that will be used to communicate with Maya."""
-#todo: make a setting
-k_maya_port = 8000
 
 k_evalpy_mel_str = """catch(python("
 def __eval_in_maya():
     execfile('%s', globals())
 __eval_in_maya()
 "))"""
+
+g_settings = sublime.load_settings('footools.sublime-settings')
 
 
 class eval_in_maya(sublime_plugin.TextCommand):
@@ -50,7 +49,7 @@ class eval_in_maya(sublime_plugin.TextCommand):
         success = False
         sock = None
         try:
-            sock = socket.create_connection(("", k_maya_port), 2.0)
+            sock = socket.create_connection(("", g_settings.get('maya_port', 8000)), 2.0)
             sock.sendall(mel_str)
             success = True
         except:
