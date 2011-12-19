@@ -16,7 +16,6 @@ g_settings = sublime.load_settings('footools.sublime-settings')
 
 
 class eval_in_maya(sublime_plugin.TextCommand):
-
     def run(self, edit):
         syntax = self.get_file_syntax()
         if not syntax:
@@ -56,6 +55,11 @@ class eval_in_maya(sublime_plugin.TextCommand):
         finally:
             if sock:
                 sock.close()
+
+
+    def is_enabled(self):
+        syntax = self.get_file_syntax()
+        return bool(syntax)
 
 
     def get_file_syntax(self):
