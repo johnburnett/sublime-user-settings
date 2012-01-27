@@ -6,5 +6,6 @@
 	"draw_minimap_border": true,
 	"ensure_newline_at_eof_on_save": true,
 	"highlight_line": true,
-	"word_wrap": false
+	"word_wrap": false,
+	"match_selection": false
 }
