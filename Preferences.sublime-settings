@@ -1,0 +1,11 @@
+{
+	"color_scheme": "Packages/User/johnburnett.tmTheme",
+	"draw_minimap_border": true,
+	"ensure_newline_at_eof_on_save": true,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"match_selection": false,
+	"scroll_speed": 0.0,
+	"theme": "Soda Light.sublime-theme",
+	"word_wrap": false
+}
