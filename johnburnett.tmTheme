@@ -55,7 +55,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#00A33F</string>
+				<string>#0F8421</string>
 			</dict>
 		</dict>
 		<dict>
@@ -64,7 +64,10 @@
 			<key>scope</key>
 			<string>constant.numeric</string>
 			<key>settings</key>
-			<dict/>
+			<dict>
+				<key>foreground</key>
+				<string>#0F8421</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>name</key>
