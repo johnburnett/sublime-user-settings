@@ -1,4 +1,5 @@
 {
+	"spell_check": true,
 	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
 	"ensure_newline_at_eof_on_save": true,
