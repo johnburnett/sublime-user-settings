@@ -6,10 +6,13 @@ import sublime, sublime_plugin
 
 
 def open_bash(dir_path):
-    cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
-    bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
+    if sys.platform == 'win32':
+        cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
+        bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
 
-    cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
+        cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
+    elif sys.platform == 'linux2':
+        cmd = ['gnome-terminal', '--working-directory', dir_path]
     subprocess.Popen(cmd)
 
 
@@ -63,21 +66,24 @@ class open_cmd_here(open_shell_here):
 class open_file_browser_here(open_shell_here):
 
     def is_enabled(self):
-        return sys.platform == 'win32' and super(self.__class__, self).is_enabled()
+        return (sys.platform in ('win32', 'linux2')) and super(self.__class__, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
-        explorer = os.path.join(os.environ['SYSTEMROOT'], 'explorer.exe')
-        if file_name:
-            file_path = os.path.join(dir_path, file_name)
-            subprocess.Popen([explorer, '/select,', file_path])
-        else:
-            subprocess.Popen([explorer, dir_path])
+        if sys.platform == 'win32':
+            explorer = os.path.join(os.environ['SYSTEMROOT'], 'explorer.exe')
+            if file_name:
+                file_path = os.path.join(dir_path, file_name)
+                subprocess.Popen([explorer, '/select,', file_path])
+            else:
+                subprocess.Popen([explorer, dir_path])
+        elif sys.platform == 'linux2':
+            subprocess.Popen(['nautilus', dir_path])
 
 
 class open_bash_here(open_shell_here):
 
     def is_enabled(self):
-        return sys.platform == 'win32' and super(open_bash_here, self).is_enabled()
+        return (sys.platform in ('win32', 'linux2')) and super(open_bash_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
         open_bash(dir_path)
