@@ -14,5 +14,6 @@
 	"scroll_speed": 0.0,
 	"spell_check": true,
 	"theme": "Soda Light.sublime-theme",
+    "tree_animation_enabled": false,
 	"word_wrap": false
 }
