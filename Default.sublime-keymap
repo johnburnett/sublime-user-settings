@@ -30,5 +30,17 @@
 	},
 	{ "keys": ["alt+p"], "command": "find_prev", "context":
 		[{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+	},
+
+	// SmartCursor arrow key bindings
+	{ "keys": ["up"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": false}, "context":
+		[
+			{ "key": "auto_complete_visible", "operator": "equal", "operand": false }
+		]
+	},
+	{ "keys": ["down"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": true}, "context":
+		[
+			{ "key": "auto_complete_visible", "operator": "equal", "operand": false }
+		]
 	}
 ]

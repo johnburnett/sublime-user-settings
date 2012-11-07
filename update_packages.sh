@@ -8,6 +8,7 @@ Theme\ -\ Soda https://github.com/buymeasoda/soda-theme.git
 CoffeeScript https://github.com/jashkenas/coffee-script-tmbundle.git
 HexViewer https://github.com/facelessuser/HexViewer.git
 ColorPicker https://github.com/weslly/ColorPicker.git
+SmartCursor https://github.com/bizoo/SmartCursor.git
 "
 
 pushd .. > /dev/null
