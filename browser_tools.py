@@ -49,7 +49,7 @@ class open_url_in_selection(sublime_plugin.TextCommand):
     def description(self):
         url = self.get_url_in_sel()
         if url:
-            return 'Open URL "%s"' % url
+            return 'Open URL "{0}"'.format(url)
         else:
             return 'Open URL'
 

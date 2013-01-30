@@ -22,11 +22,11 @@ else:
         LF = chr(0x0A)
         endtypes = {'u':LF, 'w':CR+LF, 'm':CR}
         def writefile(endings):
-            with open('line-%s.dat' % endings, 'wb') as hfile:
+            with open('line-{0}.dat'.format(endings), 'wb') as hfile:
                 hfile.write('x'.join([endtypes[e] for e in endings]))
         for test in ['uu', 'ww', 'mm', 'wu', 'wm', 'mu', 'mw', 'um', 'uw']:
             writefile(test)
     else:
         import glob
         for fname in glob.glob('*.dat'):
-            print '%s: %r' % (fname, open(fname,'rb').read())
+            print('{0!s}: {1!r}'.format(fname, open(fname,'rb').read()))

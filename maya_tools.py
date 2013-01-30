@@ -8,7 +8,7 @@ import sublime, sublime_plugin
 
 k_evalpy_mel_str = """catch(python("
 def __eval_in_maya():
-    execfile('%s', globals())
+    execfile('{0}', globals())
 __eval_in_maya()
 "))"""
 
@@ -30,14 +30,14 @@ class eval_in_maya(sublime_plugin.TextCommand):
         eval_file_path, is_temp_file = self.get_eval_file_path()
 
         if syntax == 'python':
-            mel_str = k_evalpy_mel_str % eval_file_path
+            mel_str = k_evalpy_mel_str.format(eval_file_path)
         elif syntax == 'mel':
-            mel_str = 'catch(eval("source\\"%s\\""))' % eval_file_path
+            mel_str = 'catch(eval("source\\"{0}\\""))'.format(eval_file_path)
 
         if is_temp_file:
             # Make Maya delete the file itself to avoid race condition of
             # deleting the file before Maya has read it.
-            mel_str += ';sysFile -delete "%s"' % eval_file_path
+            mel_str += ';sysFile -delete "{0}"'.format(eval_file_path)
 
         mel_str = mel_str.strip().replace('\n', '\\n')
 

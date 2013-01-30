@@ -11,11 +11,11 @@ class per_host_settings(sublime_plugin.EventListener):
 
     def install_callbacks(self):
         callbacks = []
-        if not globals().has_key('_per_host_settings_callbacks_installed'):
+        if '_per_host_settings_callbacks_installed' not in globals():
             try:
                 hostname = socket.gethostname().lower()
                 packages_path = sublime.packages_path()
-                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.%s.sublime-settings" % (hostname,))
+                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.{0}.sublime-settings".format(hostname))
                 try:
                     with open(host_settings_file) as f:
                         host_settings = json.load(f)
@@ -23,11 +23,11 @@ class per_host_settings(sublime_plugin.EventListener):
                     host_settings = None
 
                 if host_settings:
-                    print 'Installing per-host settings from "%s"' % (host_settings_file,)
-                    for base_name, settings_values in host_settings.iteritems():
+                    print('Installing per-host settings from "{0}"'.format(host_settings_file))
+                    for base_name, settings_values in host_settings.items():
                         settings = sublime.load_settings(base_name)
-                        for name, value in settings_values.iteritems():
-                            print '  "%s, %s = %s"' % (base_name, name, value)
+                        for name, value in settings_values.items():
+                            print('  "{0}, {1} = {2}"'.format(base_name, name, value))
                             callback = lambda: self.apply_value(settings, name, value)
                             callbacks.append(callback)
                             settings.add_on_change(name, callback)
@@ -48,7 +48,7 @@ class per_host_settings(sublime_plugin.EventListener):
         if not self._applying:
             try:
                 self._applying = True
-                print 'Applying per-host setting "%s = %s"' % (name, value)
+                print('Applying per-host setting "{0} = {1}"'.format(name, value))
                 settings.set(name, value)
             finally:
                 self._applying = False

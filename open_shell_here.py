@@ -10,7 +10,7 @@ def open_bash(dir_path):
         cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
         bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
 
-        cmd = '%s /c "pushd "%s" && "%s" --login -i"' % (cmd_path, dir_path, bash_path)
+        cmd = '{cmd_path} /c "pushd "{dir_path}" && "{bash_path}" --login -i"'.format(**locals())
     elif sys.platform == 'linux2':
         cmd = ['gnome-terminal', '--working-directory', dir_path]
     subprocess.Popen(cmd)
