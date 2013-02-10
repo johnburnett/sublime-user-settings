@@ -1,5 +1,8 @@
 {
 	"Preferences.sublime-settings": {
-	    "font_size": 13
+		"font_size": 13
+	},
+	"Git.sublime-settings": {
+		"git_command": "C:/Progra~2/Git/bin/git.exe"
 	}
 }
