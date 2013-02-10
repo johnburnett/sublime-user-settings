@@ -28,7 +28,9 @@ class per_host_settings(sublime_plugin.EventListener):
                         settings = sublime.load_settings(base_name)
                         for name, value in settings_values.items():
                             print('  "{0}, {1} = {2}"'.format(base_name, name, value))
-                            callback = lambda: self.apply_value(settings, name, value)
+                            def make_callback(settings, name, value):
+                                return lambda: self.apply_value(settings, name, value)
+                            callback = make_callback(settings, name, value)
                             callbacks.append(callback)
                             settings.add_on_change(name, callback)
             finally:
