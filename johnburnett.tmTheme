@@ -25,18 +25,40 @@
 				<string>#BAD6FD</string>
 			</dict>
 		</dict>
-	    <dict>
-	        <key>name</key>
-	        <string>WordHighlight</string>
-	        <key>scope</key>
-	        <string>wordhighlight</string>
-	        <key>settings</key>
-	        <dict>
-	            <key>foreground</key>
-	            <string>#FFFF0050</string>
-	        </dict>
-	    </dict>
-   		<dict>
+		<dict>
+			<key>name</key>
+			<string>WordHighlight</string>
+			<key>scope</key>
+			<string>wordhighlight</string>
+			<key>settings</key>
+			<dict>
+				<key>foreground</key>
+				<string>#FFFF0050</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>markup.inserted.diff</string>
+			<key>scope</key>
+			<string>markup.inserted.diff</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#00FF0020</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>markup.deleted.diff</string>
+			<key>scope</key>
+			<string>markup.deleted.diff</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#FF000020</string>
+			</dict>
+		</dict>
+		<dict>
 			<key>name</key>
 			<string>Comment</string>
 			<key>scope</key>
