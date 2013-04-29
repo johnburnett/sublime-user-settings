@@ -15,7 +15,7 @@ class per_host_settings(sublime_plugin.EventListener):
             try:
                 hostname = socket.gethostname().lower()
                 packages_path = sublime.packages_path()
-                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.{0}.sublime-settings".format(hostname))
+                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.{0}.json".format(hostname))
                 try:
                     with open(host_settings_file) as f:
                         host_settings = json.load(f)
@@ -28,7 +28,9 @@ class per_host_settings(sublime_plugin.EventListener):
                         settings = sublime.load_settings(base_name)
                         for name, value in settings_values.items():
                             print('  "{0}, {1} = {2}"'.format(base_name, name, value))
-                            callback = lambda: self.apply_value(settings, name, value)
+                            def make_callback(settings, name, value):
+                                return lambda: self.apply_value(settings, name, value)
+                            callback = make_callback(settings, name, value)
                             callbacks.append(callback)
                             settings.add_on_change(name, callback)
             finally:
