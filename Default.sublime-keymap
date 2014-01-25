@@ -1,4 +1,6 @@
 [
+	{ "keys": ["ctrl+q"], "command": "noop" },
+
 	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "words", "forward": true} },
 	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "words", "forward": true, "extend": true} },
 
