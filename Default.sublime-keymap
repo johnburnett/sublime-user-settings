@@ -1,8 +1,10 @@
 [
 	{ "keys": ["ctrl+q"], "command": "noop" },
 
-	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "words", "forward": true} },
-	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "words", "forward": true, "extend": true} },
+	{ "keys": ["ctrl+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
+	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "subwords", "forward": true} },
+	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "subwords", "forward": true, "extend": true} },
 
 	// Cross-platform consistency
 	{ "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
