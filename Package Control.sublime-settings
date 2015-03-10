@@ -6,11 +6,13 @@
 	[
 		"Package Control",
 		"SmartCursor",
+		"sublime-footools",
 		"Theme - Soda",
 		"WordHighlight"
 	],
 	"repositories":
 	[
-		"https://github.com/bizoo/SmartCursor"
+		"https://github.com/bizoo/SmartCursor",
+		"https://github.com/johnburnett/sublime-footools"
 	]
 }
