@@ -1,10 +1,37 @@
 [
+	// Suppress ctrl+q from insta-quitting
 	{ "keys": ["ctrl+q"], "command": "noop" },
 
-	{ "keys": ["ctrl+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
-	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "subwords", "forward": true} },
-	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
-	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "subwords", "forward": true, "extend": true} },
+	// rational ctrl+arrow movement for ST3
+	// http://www.sublimetext.com/forum/viewtopic.php?f=3&t=17021
+	{ "keys": ["ctrl+left"], "command": "move", "args": {
+			"by": "stops", "forward": false,
+			"word_begin": true, "word_end": false,
+			"line_begin": true, "line_end": true,
+			"punct_begin": true, "punct_end": false
+		}
+	},
+	{ "keys": ["ctrl+right"], "command": "move", "args": {
+			"by": "stops", "forward": true,
+			"word_begin": true, "word_end": false,
+			"line_begin": true, "line_end": true,
+			"punct_begin": true, "punct_end": false
+		}
+	},
+	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {
+			"by": "stops", "forward": false, "extend": true,
+			"word_begin": true, "word_end": false,
+			"line_begin": true, "line_end": true,
+			"punct_begin": true, "punct_end": false
+		}
+	},
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {
+			"by": "stops", "forward": true, "extend": true,
+			"word_begin": true, "word_end": false,
+			"line_begin": true, "line_end": true,
+			"punct_begin": true, "punct_end": false
+		}
+	},
 
 	// Cross-platform consistency
 	{ "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
