@@ -1,9 +1,12 @@
 {
+	"ignore_vcs_packages": true,
 	"in_process_packages":
 	[
 	],
 	"installed_packages":
 	[
+		"GitGutter",
+		"GitSavvy",
 		"Package Control",
 		"SmartCursor",
 		"sublime-footools",
