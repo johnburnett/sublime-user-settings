@@ -1,21 +1,24 @@
 {
-	"always_prompt_for_file_reload": true,
 	"bold_folder_labels": true,
 	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
-    "enable_tab_scrolling": false,
+	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
 	"ignored_words":
 	[
 		"bfdlaunch"
 	],
 	"match_selection": false,
+	"rulers": [80],
 	"scroll_speed": 0.0,
 	"spell_check": true,
 	"theme": "Soda Light.sublime-theme",
 	"tree_animation_enabled": false,
-	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false
 }
