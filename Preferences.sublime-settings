@@ -15,7 +15,10 @@
 		"bfdlaunch"
 	],
 	"match_selection": false,
-	"rulers": [80],
+	"rulers":
+	[
+		80
+	],
 	"scroll_speed": 0.0,
 	"spell_check": true,
 	"theme": "Soda Light.sublime-theme",
