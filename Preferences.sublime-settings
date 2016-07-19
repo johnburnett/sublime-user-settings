@@ -1,9 +1,13 @@
 {
+	"always_show_minimap_viewport": true,
+	"auto_find_in_selection": true,
 	"bold_folder_labels": true,
+	"caret_extra_width": 1,
 	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
+	"fade_fold_buttons": false,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -14,14 +18,21 @@
 	[
 		"bfdlaunch"
 	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
 	"match_selection": false,
 	"rulers":
 	[
 		80
 	],
 	"scroll_speed": 0.0,
+	"show_encoding": true,
+	"show_line_endings": true,
 	"spell_check": true,
-	"theme": "Soda Light.sublime-theme",
+	"theme": "Soda Light 3.sublime-theme",
 	"tree_animation_enabled": false,
 	"word_wrap": false
 }

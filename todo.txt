@@ -1,5 +1,0 @@
--ctrl-[ behavior (current ctrl-m doesn't match anything besides braces)
--textpad cursor movement
-
-http://www.sublimetext.com/docs/api-reference
-http://www.sublimetext.com/docs/plugin-examples
