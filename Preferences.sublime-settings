@@ -1,5 +1,6 @@
 {
 	"always_show_minimap_viewport": true,
+	"auto_complete_cycle": true,
 	"auto_find_in_selection": true,
 	"bold_folder_labels": true,
 	"caret_extra_width": 1,
