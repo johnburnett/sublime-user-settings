@@ -1,4 +1,5 @@
 {
+	"bootstrapped": true,
 	"ignore_vcs_packages": true,
 	"in_process_packages":
 	[
@@ -8,6 +9,7 @@
 		"GitGutter",
 		"GitSavvy",
 		"Package Control",
+		"PowerShell",
 		"SmartCursor",
 		"sublime-footools",
 		"Theme - Soda",
