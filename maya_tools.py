@@ -12,7 +12,7 @@ def __eval_in_maya():
 __eval_in_maya()
 "))"""
 
-g_settings = sublime.load_settings('footools.sublime-settings')
+g_settings = sublime.load_settings('maya_tools.sublime-settings')
 
 
 class eval_in_maya(sublime_plugin.TextCommand):
