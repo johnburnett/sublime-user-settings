@@ -88,7 +88,7 @@ class open_file_browser_here(open_shell_here):
             else:
                 subprocess.Popen([explorer, dir_path])
         elif platform() == 'linux':
-            subprocess.Popen(['nautilus', dir_path])
+            subprocess.Popen(['nemo', dir_path])
 
 
 class open_bash_here(open_shell_here):
