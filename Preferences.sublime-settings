@@ -2,7 +2,6 @@
 	"always_show_minimap_viewport": true,
 	"auto_complete_cycle": true,
 	"auto_find_in_selection": true,
-	"bold_folder_labels": true,
 	"caret_extra_width": 1,
 	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
@@ -33,7 +32,7 @@
 	"show_encoding": true,
 	"show_line_endings": true,
 	"spell_check": true,
-	"theme": "Soda Light 3.sublime-theme",
+	"theme": "Adaptive.sublime-theme",
 	"tree_animation_enabled": false,
 	"word_wrap": false
 }
