@@ -31,6 +31,7 @@
 	"scroll_speed": 0.0,
 	"show_encoding": true,
 	"show_line_endings": true,
+	"show_tab_close_buttons": false,
 	"spell_check": true,
 	"theme": "Adaptive.sublime-theme",
 	"tree_animation_enabled": false,

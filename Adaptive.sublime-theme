@@ -5,7 +5,7 @@
     },
     {
         "class": "sidebar_tree",
-        "row_padding": [8, 2],
+        "row_padding": [8, 3],
     },
 
     {
@@ -34,5 +34,14 @@
         "class": "close_button",
         "attributes": ["dirty"],
         "layer0.opacity": 0.6,
+    },
+
+    {
+        "class": "tabset_control",
+        "tab_overlap": 24,
+    },
+    {
+        "class": "tab_control",
+        "content_margin": [20, 13],
     },
 ]
