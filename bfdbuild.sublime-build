@@ -1,5 +1,5 @@
 {
-	"cmd": ["bl", "-p=build", "scons"],
+	"cmd": ["bl", "-p=build", "scons", "-j8"],
 	"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
 	"keyfiles": ["SConstruct"],
 	// "working_dir": "${project_path:${folder:${file_path}}}",
