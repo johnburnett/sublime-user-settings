@@ -1,0 +1,13 @@
+{
+    "user": {
+        "linters": {
+            "bfdpylint": {
+                "@disable": false,
+                "args": [],
+                "excludes": [],
+                "show-codes": true
+            }
+        },
+        "tooltips": true
+    }
+}
