@@ -6,13 +6,13 @@
 	],
 	"installed_packages":
 	[
+		"EditorConfig",
 		"GitGutter",
 		"GitSavvy",
 		"Package Control",
 		"PowerShell",
 		"SmartCursor",
 		"sublime-footools",
-		"SublimeLinter",
 		"Theme - Soda",
 		"WordHighlight"
 	],
