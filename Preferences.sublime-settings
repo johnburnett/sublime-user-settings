@@ -3,11 +3,15 @@
 	"auto_complete_cycle": true,
 	"auto_find_in_selection": true,
 	"caret_extra_width": 1,
+	"close_windows_when_empty": false,
 	"color_scheme": "Packages/User/johnburnett.tmTheme",
 	"draw_minimap_border": true,
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
+	"font_face": "Monospace",
+	"font_size": 10,
 	"fade_fold_buttons": false,
+	"find_selected_text": true,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -24,12 +28,16 @@
 		"draw_active"
 	],
 	"match_selection": false,
+	"mouse_wheel_switches_tabs": false,
+	"move_to_limit_on_up_down": false,
 	"rulers":
 	[
 		80
 	],
+	"scroll_past_end": true,
 	"scroll_speed": 0.0,
 	"show_encoding": true,
+	"show_full_path": true,
 	"show_line_endings": true,
 	"show_tab_close_buttons": false,
 	"spell_check": true,
