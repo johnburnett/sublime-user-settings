@@ -32,8 +32,10 @@
 			<string>wordhighlight</string>
 			<key>settings</key>
 			<dict>
+				<key>background</key>
+				<string>#FFFF0070</string>
 				<key>foreground</key>
-				<string>#FFFF0050</string>
+				<string>#000000FF</string>
 			</dict>
 		</dict>
 		<dict>
