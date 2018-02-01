@@ -32,6 +32,7 @@
 	"move_to_limit_on_up_down": false,
 	"rulers":
 	[
+		72,
 		80
 	],
 	"scroll_past_end": true,
