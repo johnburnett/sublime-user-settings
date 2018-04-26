@@ -12,6 +12,8 @@
 	"find_selected_text": true,
 	"font_face": "Monospace",
 	"font_size": 10,
+	"folder_exclude_patterns": [],
+	"file_exclude_patterns": [],
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
