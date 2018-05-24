@@ -17,14 +17,21 @@ def platform():
 
 
 def open_bash(dir_path):
+    cmds = []
     if platform() == 'windows':
         cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
         bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
-
-        cmd = '{cmd_path} /c "pushd "{dir_path}" && "{bash_path}" --login -i"'.format(**locals())
+        cmds.append(['{cmd_path} /c "pushd "{dir_path}" && "{bash_path}" --login -i"'.format(**locals())])
     elif platform() == 'linux':
-        cmd = ['gnome-terminal', '--working-directory', dir_path]
-    subprocess.Popen(cmd)
+        cmds.append(['/usr/bin/tilix', '--working-directory', dir_path])
+        cmds.append(['/usr/bin/gnome-terminal', '--working-directory', dir_path])
+
+    for cmd in cmds:
+        try:
+            subprocess.Popen(cmd)
+            break
+        except OSError:
+            pass
 
 
 class open_shell_here(sublime_plugin.ApplicationCommand):
