@@ -81,6 +81,15 @@ class open_cmd_here(open_shell_here):
         subprocess.Popen(['cmd.exe', '/k', 'pushd', dir_path], shell=False)
 
 
+class open_powershell_here(open_shell_here):
+
+    def is_enabled(self):
+        return platform() == 'windows' and super(open_powershell_here, self).is_enabled()
+
+    def open_shell(self, dir_path, file_name):
+        subprocess.Popen(['powershell.exe', '-noexit', '-command', "cd '%s'" % dir_path], shell=False)
+
+
 class open_file_browser_here(open_shell_here):
 
     def is_enabled(self):
