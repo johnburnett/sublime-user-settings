@@ -7,12 +7,10 @@
 	"installed_packages":
 	[
 		"EditorConfig",
-		"GitGutter",
 		"Package Control",
 		"PowerShell",
 		"SmartCursor",
 		"sublime-footools",
-		"Theme - Soda",
 		"WordHighlight"
 	],
 	"repositories":

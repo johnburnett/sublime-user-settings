@@ -44,4 +44,10 @@
         "class": "tab_control",
         "content_margin": [20, 13],
     },
+
+    {
+        "class": "vcs_status_badge",
+        "parents": [{"class": "file_system_entry", "attributes": ["modified"]}],
+        "layer0.opacity": 0.3,
+    },
 ]

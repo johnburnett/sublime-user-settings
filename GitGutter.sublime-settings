@@ -1,7 +1,0 @@
-{
-    "git_binary": {
-        "default": "",
-        "windows": "C:/Program Files/Git/cmd/git.exe"
-    },
-    "show_line_annotation": false
-}
