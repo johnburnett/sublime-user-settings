@@ -1,0 +1,164 @@
+{
+    // https://www.sublimetext.com/docs/3/scope_naming.html
+    // ctrl-alt-shift-P to get scopes under cursor
+    "name": "johnburnett",
+    "author": "John Burnett",
+    "variables":
+    {
+        // These colors are part of the hashed range
+        // and should only be used in non-source
+        "purple": "hsla(260, 50%, 60%, 1)",
+        "blue": "hsla(200, 70%, 45%, 1)",
+        "teal": "hsla(170, 70%, 45%, 1)",
+        "green": "rgb(255, 0, 0)",
+        // End of hashed range colors
+        "red": "hsla(0, 70%, 65%, 1)",
+        "orange": "hsla(25, 90%, 60%, 1)",
+        "dark_orange": "hsla(10, 90%, 60%, 1)",
+        "yellow": "hsla(50, 100%, 60%, 1)",
+        "brown": "hsla(30, 30%, 45%, 1)",
+        "dark_brown": "hsla(30, 30%, 30%, 1)",
+        "magenta": "hsla(335, 100%, 65%, 1)",
+        "light_gray": "rgb(246, 246, 246)",
+        "dark_gray": "rgb(51, 51, 51)",
+        "black": "rgb(0, 0, 0)",
+        "white": "rgb(255, 255, 255)",
+        "black_wash": "color(var(black) alpha(0.06)",
+        "foreground": "var(black)",
+        "background": "var(white)",
+        "selection": "rgb(186, 214, 253)",
+        "selection_border": "color(var(sel) blend(var(black) 75%)",
+        "wordhighlight": "rgba(255, 255, 0, 0.44)",
+    },
+    "globals":
+    {
+        "invisibles": "rgb(191, 191, 191)",
+        "foreground": "var(foreground)",
+        "background": "var(background)",
+        "caret": "var(black)",
+        "selection": "var(selection)",
+        "selection_border": "var(selection_border)",
+        "inactive_selection": "color(var(dark_gray) a(0.08))",
+        "line_highlight": "var(black_wash)",
+        "highlight": "var(magenta)",
+        "find_highlight": "var(yellow)",
+        "find_highlight_foreground": "var(dark_brown)",
+        "active_guide": "var(red)",
+        "stack_guide": "var(orange)",
+        "shadow": "rgb(187, 187, 187)",
+        "accent": "var(orange)",
+        "misspelling": "var(dark_orange)",
+        "fold_marker": "var(yellow)",
+        "constant": "rgb(15, 132, 33)",
+    },
+    "rules":
+    [
+        // minimal scope coverage
+        {
+            "scope": "entity.name",
+        },
+        {
+            "scope": "entity.other.inherited-class",
+        },
+        {
+            "scope": "entity.name.section",
+        },
+        {
+            "scope": "entity.name.tag",
+        },
+        {
+            "scope": "entity.other.attribute-name",
+        },
+        {
+            "scope": "variable",
+        },
+        {
+            "scope": "variable.language",
+        },
+        {
+            "scope": "variable.parameter",
+        },
+        {
+            "scope": "variable.function",
+            "foreground": "rgb(33,67,156)",
+        },
+        {
+            "scope": "constant",
+            "foreground": "var(constant)"
+        },
+        {
+            "scope": "constant.character",
+            "foreground": "var(constant)",
+        },
+        {
+            "scope": "constant.numeric",
+            "foreground": "var(constant)",
+        },
+        {
+            "scope": "constant.language",
+            "foreground": "var(constant)",
+        },
+        {
+            "scope": "constant.character.escape",
+            "foreground": "var(constant)",
+        },
+        {
+            "scope": "storage.type",
+            "foreground": "rgb(33,67,156)"
+        },
+        {
+            "scope": "storage.modifier",
+        },
+        {
+            "scope": "support",
+            "foreground": "rgb(165,53,174)",
+        },
+        {
+            "scope": "keyword",
+            "foreground": "rgb(165,53,174)",
+        },
+        {
+            "scope": "keyword.control",
+            "foreground": "rgb(165,53,174)",
+        },
+        {
+            "scope": "keyword.operator",
+            "foreground": "rgb(165,53,174)",
+        },
+        {
+            "scope": "string",
+            "foreground": "var(constant)",
+        },
+        {
+            "scope": "comment",
+            "foreground": "rgb(136, 136, 136)",
+        },
+        {
+            "scope": "invalid",
+            "foreground": "var(foreground)",
+            "background": "rgb(153,0,0)",
+        },
+        {
+            "scope": "invalid.deprecated",
+        },
+
+        // package wordhighlight
+        {
+            "name": "wordhighlight",
+            "scope": "wordhighlight",
+            "background": "var(wordhighlight)"
+        },
+
+        // syntax .patch
+        {
+            "name": "markup.inserted.diff",
+            "scope": "markup.inserted.diff",
+            "background": "rgba(0, 255, 0, 0.125)"
+        },
+        {
+            "name": "markup.deleted.diff",
+            "scope": "markup.deleted.diff",
+            "background": "rgba(255, 0, 0, 0.125)"
+        },
+    ]
+}
