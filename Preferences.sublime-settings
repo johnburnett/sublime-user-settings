@@ -4,7 +4,7 @@
 	"auto_find_in_selection": true,
 	"caret_extra_width": 1,
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/User/johnburnett.tmTheme",
+	"color_scheme": "Packages/User/johnburnett.sublime-color-scheme",
 	"draw_minimap_border": true,
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
