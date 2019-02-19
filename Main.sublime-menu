@@ -14,15 +14,7 @@
             { "caption": "-" },
             { "command": "eval_in_maya", "caption": "Eval In Maya", "mnemonic": "M" },
             { "caption": "-" },
-            {
-                "caption": "Dev",
-                "id": "dev",
-                "children":
-                [
-                    { "command": "toggle_command_logging" },
-                    { "command": "open_bash_packages" }
-                ]
-            }
+            { "command": "toggle_command_logging" },
         ]
     }
 ]
