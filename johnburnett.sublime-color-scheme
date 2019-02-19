@@ -41,19 +41,26 @@
         "invisibles": "rgb(191, 191, 191)",
         "foreground": "var(foreground)",
         "background": "var(background)",
+
         "caret": "var(black)",
+        "block_caret": "var(black)",
+
         "selection": "var(selection)",
         "selection_border": "var(selection_border)",
         "inactive_selection": "color(var(dark_gray) a(0.08))",
+
         "line_highlight": "var(black_wash)",
         "highlight": "var(black)",
         "find_highlight": "var(yellow)",
         "find_highlight_foreground": "var(black)",
+
         "active_guide": "var(dark_blue)",
         "stack_guide": "var(dark_blue)",
+
         "shadow": "rgb(187, 187, 187)",
         "accent": "var(selection_border)",
         "misspelling": "var(dark_orange)",
+
         "fold_marker": "var(yellow)",
         "line_diff_added": "var(mid_green)",
         "line_diff_modified": "var(light_blue)",
