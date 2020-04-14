@@ -16,22 +16,23 @@ def platform():
         return None
 
 
+def open_winterm(profile_name, dir_path):
+    subprocess.Popen(['wt', '-p', profile_name, '-d', dir_path], shell=False)
+
+
 def open_bash(dir_path):
     cmds = []
     if platform() == 'windows':
-        cmd_path = os.path.join(os.environ.get('SystemRoot', ''), r'SysWOW64\cmd.exe')
-        bash_path = os.path.join(os.environ.get('ProgramFiles(x86)', ''), r'Git\bin\sh.exe')
-        cmds.append(['{cmd_path} /c "pushd "{dir_path}" && "{bash_path}" --login -i"'.format(**locals())])
+        open_winterm('git bash', dir_path)
     elif platform() == 'linux':
         cmds.append(['/usr/bin/tilix', '--working-directory', dir_path])
         cmds.append(['/usr/bin/gnome-terminal', '--working-directory', dir_path])
-
-    for cmd in cmds:
-        try:
-            subprocess.Popen(cmd)
-            break
-        except OSError:
-            pass
+        for cmd in cmds:
+            try:
+                subprocess.Popen(cmd)
+                break
+            except OSError:
+                pass
 
 
 class open_shell_here(sublime_plugin.ApplicationCommand):
@@ -78,7 +79,7 @@ class open_cmd_here(open_shell_here):
         return platform() == 'windows' and super(open_cmd_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
-        subprocess.Popen(['cmd.exe', '/k', 'pushd', dir_path], shell=False)
+        open_winterm('cmd', dir_path)
 
 
 class open_powershell_here(open_shell_here):
@@ -87,7 +88,7 @@ class open_powershell_here(open_shell_here):
         return platform() == 'windows' and super(open_powershell_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
-        subprocess.Popen(['powershell.exe', '-noexit', '-command', "cd '%s'" % dir_path], shell=False)
+        open_winterm('Windows PowerShell', dir_path)
 
 
 class open_file_browser_here(open_shell_here):
