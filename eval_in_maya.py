@@ -7,6 +7,32 @@ import sublime, sublime_plugin
 
 MY_NAME = os.path.splitext(os.path.basename(__file__))[0]
 
+# When you run this tool and the active view is dirty, it dumps the active code
+# (either full file or the selected text) into a temp file for compiling in
+# Maya.  This controls whether the temp file should be deleted afterwards.
+# Only really handy for dev work on this tool.
+DELETE_TEMP_FILE = True
+
+# This controls whether the same temp file is used each run or not.
+#
+# Originally the original file path was threaded through to the compile call so
+# it would show up in stack traces nicely, even though the file holding the
+# actual code was off in a temp file.  However, that feeds into inspect and
+# showing lines of source.  The original file on disk is in a different state
+# than what exists transiently in the editor buffer (and the temp file), so
+# inspect.getsourcefile was picking up the wrong thing.
+#
+# Similarly, if you reuse the same filename for each run and then only partially
+# evaluate the source (e.g. via a selection), live objects in Maya will be
+# pointing to old copies of the code and source file references, which makes
+# stack traces less than truthful.  I don't think there's much to be done in
+# that case, and it's just something to be aware of.  Getting full, reliable,
+# and correct traces requires re-evaluation of all affected code, so it's a
+# trade-off between handy partial evaluation and rebuilding the world?
+REUSE_TEMP_FILE = False
+
+MAYA_BUFFER_SIZE = 4096
+
 COMMAND_TEMPLATE = '''
 from __future__ import print_function
 import __main__
@@ -18,10 +44,12 @@ try:
     nowStr = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     execLine = '# {my_name} %s' % nowStr
     trailingHashes = '#' * max(0, 80 - len(execLine))
-    print(execLine, trailingHashes)
     maya.cmds.undoInfo(openChunk=True, chunkName="Sublime Code Eval")
     if '{syntax}' == 'python':
-        execfile("{code_filepath}", __main__.__dict__, __main__.__dict__)
+        with open("{code_filepath}") as fp:
+            source = fp.read()
+        code = compile(source, "{code_filepath}", 'exec')
+        exec(code, __main__.__dict__, __main__.__dict__)
     else:
         maya.mel.eval('rehash; source "{code_filepath}"')
 except Exception as ex:
@@ -40,12 +68,12 @@ finally:
             pass
 '''
 
-MAYA_BUFFER_SIZE = 4096
-
 
 def error(msg):
     sublime.error_message("%s: %s" % (MY_NAME, msg))
 
+def escape_filepath(filepath):
+    return filepath.replace('\\', '\\\\')
 
 class eval_in_maya_command(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -62,7 +90,9 @@ class eval_in_maya_command(sublime_plugin.TextCommand):
         # If current view is not dirty, use that file, otherwise use a temp file that
         # will be cleaned up after running.
 
-        code_filepath, should_delete = self._get_code_filepath()
+        code_filepath, is_temp = self._get_code_filepath()
+        should_delete = is_temp and DELETE_TEMP_FILE
+        code_filepath = escape_filepath(code_filepath)
         command = COMMAND_TEMPLATE.format(
             my_name=MY_NAME,
             syntax=syntax,
@@ -110,20 +140,25 @@ class eval_in_maya_command(sublime_plugin.TextCommand):
 
 
     def _get_code_filepath(self):
-        """Returns a tuple of (filepath, should_delete)
+        """Returns a tuple of (filepath, is_temp)
         """
         eval_regions = [r for r in self.view.sel() if not r.empty()]
         if eval_regions or self.view.is_dirty():
-            file_no, eval_file_path = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, text=True)
-            for chunk in self._get_eval_chunks(eval_regions):
-                os.write(file_no, chunk.encode(encoding='utf-8'))
-            os.close(file_no)
+            if REUSE_TEMP_FILE:
+                code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
+                file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
+            else:
+                file_no, code_filepath = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, suffix='.txt', text=True)
+            try:
+                for chunk in self._get_eval_chunks(eval_regions):
+                    os.write(file_no, chunk.encode(encoding='utf-8'))
+            finally:
+                os.close(file_no)
             is_temp = True
         else:
-            eval_file_path = self.view.file_name()
+            code_filepath = self.view.file_name()
             is_temp = False
-        eval_file_path = eval_file_path.replace('\\', '/')
-        return eval_file_path, is_temp
+        return code_filepath, is_temp
 
 
     def _get_eval_chunks(self, eval_regions):
@@ -136,7 +171,6 @@ class eval_in_maya_command(sublime_plugin.TextCommand):
 
                 ## preserves line numbering, but doesn't dedent
                 # region_start_line = self.view.rowcol(eval_region.begin())[0]
-                # print('region_start_line:', region_start_line)
                 # for region_line in self.view.split_by_newlines(eval_region):
                 #     lineno = self.view.rowcol(region_line.begin())[0]
                 #     for ii in range(lineno - lines_written):
