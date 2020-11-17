@@ -1,4 +1,0 @@
-{
-	// The port number that will be used to communicate with Maya.
-	"maya_port" : 8000
-}
