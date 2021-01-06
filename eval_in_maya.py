@@ -142,22 +142,26 @@ class eval_in_maya_command(sublime_plugin.TextCommand):
     def _get_code_filepath(self):
         """Returns a tuple of (filepath, is_temp)
         """
+
+        # TODO: richerr in maya doesn't seem to be picking up changes to files on disk, so always
+        # write out temp file.  repro:
+        # eval saved py.py
+        # edit py.py to raise
+        # eval py.py without saving
+        # save py.py and eval again... this run will show the old py.py lines
+
         eval_regions = [r for r in self.view.sel() if not r.empty()]
-        if eval_regions or self.view.is_dirty():
-            if REUSE_TEMP_FILE:
-                code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
-                file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
-            else:
-                file_no, code_filepath = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, suffix='.txt', text=True)
-            try:
-                for chunk in self._get_eval_chunks(eval_regions):
-                    os.write(file_no, chunk.encode(encoding='utf-8'))
-            finally:
-                os.close(file_no)
-            is_temp = True
+        if REUSE_TEMP_FILE:
+            code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
+            file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
         else:
-            code_filepath = self.view.file_name()
-            is_temp = False
+            file_no, code_filepath = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, suffix='.txt', text=True)
+        try:
+            for chunk in self._get_eval_chunks(eval_regions):
+                os.write(file_no, chunk.encode(encoding='utf-8'))
+        finally:
+            os.close(file_no)
+        is_temp = True
         return code_filepath, is_temp
 
 
