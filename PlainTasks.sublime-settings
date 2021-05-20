@@ -1,0 +1,7 @@
+{
+  "color_scheme": "Packages/PlainTasks/tasks-gray.hidden-tmTheme",
+  // "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme",
+  // "color_scheme": "Packages/PlainTasks/tasks.hidden-tmTheme",
+  "line_numbers": true,
+  "match_brackets": true,
+}
