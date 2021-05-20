@@ -1,5 +1,20 @@
 [
     {
+        "id": "tools",
+        "children":
+        [
+            {
+                "caption": "Markdown",
+                "id": "markdown",
+                "children":
+                [
+                    { "command": "markdown_preview", "caption": "Markdown Preview (GitHub)", "args": {"target": "browser", "parser":"github"} },
+                    { "command": "markdown_cheatsheet", "caption": "Markdown Cheatsheet" },
+                ]
+            }
+        ]
+    },
+    {
         "caption": "My",
         "mnemonic": "M",
         "id": "my",
