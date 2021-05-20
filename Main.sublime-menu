@@ -5,13 +5,13 @@
         "id": "my",
         "children":
         [
-            { "command": "delete_alternate_lines" },
-            { "caption": "-" },
             { "command": "open_file_browser_here", "caption": "Open File Browser Here", "mnemonic": "F" },
             { "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
             { "command": "open_powershell_here", "caption": "Open Powershell Here", "mnemonic": "P" },
             { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
             { "caption": "-" },
+            { "command": "delete_alternate_lines" },
+            { "command": "rename_buffer", "caption": "Rename Buffer", "mnemonic": "R" },
             { "command": "eval_in_maya", "caption": "Eval In Maya", "mnemonic": "M" },
             { "caption": "-" },
             { "command": "toggle_command_logging" },
