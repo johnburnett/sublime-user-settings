@@ -39,6 +39,9 @@
 	{ "keys": ["shift+insert"], "command": "paste" },
 	{ "keys": ["shift+delete"], "command": "cut" },
 
+	{ "keys": ["alt+left"], "command": "jump_back" },
+	{ "keys": ["alt+right"], "command": "jump_forward" },
+
 	// Find panel key bindings
 	{ "keys": ["alt+n"], "command": "find_next", "context":
 		[{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
@@ -112,5 +115,7 @@
 		[
 			{ "key": "selector", "operator": "equal", "operand": "text.todo meta.tag.todo.completed, text.todo meta.tag.todo.cancelled" }
 		]
-	}
+	},
+
+	{ "keys": ["ctrl+d"], "command": "find_under_expand" }
 ]
