@@ -28,8 +28,10 @@
         "dark_purple": "rgb(165,53,174)",
         "dark_red": "rgb(132, 15, 33)",
 
-        "black_wash": "color(var(black) alpha(0.06)",
+        "black_wash": "color(var(black) alpha(0.06))",
         "orange_green_blend": "color(var(dark_green) blend(var(dark_orange) 50%))",
+
+        "guide": "var(black)",
 
         "foreground": "var(black)",
         "background": "var(white)",
@@ -54,8 +56,10 @@
         "find_highlight": "var(yellow)",
         "find_highlight_foreground": "var(black)",
 
-        "active_guide": "var(dark_blue)",
-        "stack_guide": "var(dark_blue)",
+        "active_guide": "color(var(guide) alpha(0.3))",
+        "stack_guide": "color(var(guide) alpha(0.2))",
+        "guide": "color(var(guide) alpha(0.1))",
+        "rulers": "color(var(guide) alpha(0.1)",
 
         "shadow": "rgb(187, 187, 187)",
         "accent": "var(selection_border)",
