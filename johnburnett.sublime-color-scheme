@@ -1,0 +1,188 @@
+{
+    // https://www.sublimetext.com/docs/3/color_schemes.html
+    // https://www.sublimetext.com/docs/3/scope_naming.html
+    // ctrl-alt-shift-P to get scopes under cursor
+    "name": "johnburnett",
+    "author": "John Burnett",
+    "variables":
+    {
+        "black": "rgb(0, 0, 0)",
+        "white": "rgb(255, 255, 255)",
+        "red": "rgb(255, 0, 0)",
+        "green": "rgb(0, 255, 0)",
+        "blue": "rgb(0, 0, 255)",
+        "yellow": "rgb(255, 255, 0)",
+
+        "light_red": "rgb(253, 186, 214)",
+        "light_green": "rgb(186, 253, 186)",
+        "light_blue": "rgb(186, 214, 253)",
+
+        "mid_red": "rgb(153, 0, 0)",
+        "mid_green": "rgb(160, 255, 160)",
+        "mid_blue": "rgb(47, 127, 255)",
+
+        "dark_blue": "rgb(33, 67, 156)",
+        "dark_gray": "rgb(51, 51, 51)",
+        "dark_green": "rgb(15, 132, 33)",
+        "dark_orange": "rgb(255, 86, 0)",
+        "dark_purple": "rgb(165,53,174)",
+        "dark_red": "rgb(132, 15, 33)",
+
+        "black_wash": "color(var(black) alpha(0.06))",
+        "orange_green_blend": "color(var(dark_green) blend(var(dark_orange) 50%))",
+
+        "guide": "var(black)",
+
+        "foreground": "var(black)",
+        "background": "var(white)",
+        "selection": "var(light_blue)",
+        "selection_border": "color(var(selection) blend(var(black) 75%)",
+    },
+    "globals":
+    {
+        "invisibles": "rgb(191, 191, 191)",
+        "foreground": "var(foreground)",
+        "background": "var(background)",
+
+        "caret": "var(black)",
+        "block_caret": "var(black)",
+
+        "selection": "var(selection)",
+        "selection_border": "var(selection_border)",
+        "inactive_selection": "color(var(dark_gray) a(0.08))",
+
+        "line_highlight": "var(black_wash)",
+        "highlight": "var(black)",
+        "find_highlight": "var(yellow)",
+        "find_highlight_foreground": "var(black)",
+
+        "active_guide": "color(var(guide) alpha(0.3))",
+        "stack_guide": "color(var(guide) alpha(0.2))",
+        "guide": "color(var(guide) alpha(0.1))",
+        "rulers": "color(var(guide) alpha(0.1)",
+
+        "shadow": "rgb(187, 187, 187)",
+        "accent": "var(selection_border)",
+        "misspelling": "var(dark_orange)",
+
+        "fold_marker": "var(yellow)",
+        "line_diff_added": "var(mid_green)",
+        "line_diff_modified": "var(light_blue)",
+        "line_diff_deleted": "var(red)",
+    },
+    "rules":
+    [
+        // minimal scope coverage
+        {
+            "scope": "entity.name",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "entity.name.section",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "entity.name.tag",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "entity.other.attribute-name",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "variable",
+            "foreground": "var(dark_blue)",
+        },
+        {
+            "scope": "variable.language",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "variable.parameter",
+            "foreground": "var(dark_blue)",
+        },
+        {
+            "scope": "entity.name.function",
+            "foreground": "var(dark_blue)",
+        },
+        {
+            "scope": "variable.function",
+            "foreground": "var(dark_blue)",
+        },
+        {
+            "scope": "constant",
+            "foreground": "var(dark_red)"
+        },
+        {
+            "scope": "constant.numeric",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "constant.language",
+            "foreground": "var(dark_red)",
+        },
+        {
+            "scope": "constant.character.escape",
+            "foreground": "var(dark_green)",
+        },
+        {
+            "scope": "storage.type",
+            "foreground": "var(dark_orange)"
+        },
+        {
+            "scope": "storage.modifier",
+            "foreground": "var(dark_orange)"
+        },
+        {
+            "scope": "support",
+            "foreground": "var(dark_purple)",
+        },
+        {
+            "scope": "keyword",
+            "foreground": "var(dark_purple)",
+        },
+        {
+            "scope": "keyword.control",
+            "foreground": "var(dark_orange)",
+        },
+        {
+            "scope": "keyword.operator",
+            "foreground": "var(dark_orange)",
+        },
+        {
+            "scope": "string",
+            "foreground": "var(dark_green)",
+        },
+        {
+            "scope": "comment",
+            "foreground": "var(mid_blue)",
+        },
+        {
+            "scope": "invalid",
+            "foreground": "var(foreground)",
+            "background": "var(mid_red)",
+        },
+
+        // package wordhighlight
+        {
+            "scope": "wordhighlight",
+            "background": "var(yellow)"
+        },
+
+        // syntax .patch
+        {
+            "scope": "markup.inserted.diff",
+            "background": "rgba(0, 255, 0, 0.125)"
+        },
+        {
+            "scope": "markup.deleted.diff",
+            "background": "rgba(255, 0, 0, 0.125)"
+        },
+
+        // json invalid format
+        {
+            "scope": "invalid",
+            "background": "var(light_red)"
+        }
+    ]
+}

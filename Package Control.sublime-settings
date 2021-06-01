@@ -1,0 +1,24 @@
+{
+	"bootstrapped": true,
+	"ignore_vcs_packages": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"EditorConfig",
+		"MarkdownPreview",
+		"Package Control",
+		"PlainTasks",
+		"PowerShell",
+		"Shader Syntax (GLSL HLSL Cg)",
+		"SmartCursor",
+		"sublime-footools",
+		"WordHighlight"
+	],
+	"repositories":
+	[
+		"https://github.com/bizoo/SmartCursor",
+		"https://github.com/johnburnett/sublime-footools"
+	]
+}

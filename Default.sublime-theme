@@ -1,0 +1,37 @@
+[
+    {
+        "class": "sidebar_heading",
+        "font.size": 12,
+    },
+    {
+        "class": "sidebar_tree",
+        "row_padding": [8, 2],
+    },
+
+    {
+        "class": "close_button",
+        "layer0.opacity": 0.0,
+    },
+    {
+        "class": "close_button",
+        "attributes": ["hover"],
+        "layer0.opacity": 0.6,
+    },
+    {
+        "class": "close_button",
+        "attributes": ["dirty"],
+        "layer0.opacity": 0.3,
+    },
+
+    {
+        "class": "tab_control",
+        "content_margin": [12, 10],
+        "layer0.tint": [255, 255, 255, 0.4],
+    },
+
+    {
+        "class": "vcs_status_badge",
+        "parents": [{"class": "file_system_entry"}],
+        "layer0.opacity": 0.3,
+    },
+]

@@ -1,0 +1,6 @@
+{
+    "git_path": {
+        "default": "",
+        "windows": "C:/Program Files/Git/cmd/git.exe"
+    }
+}

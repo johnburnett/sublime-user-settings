@@ -1,0 +1,46 @@
+[
+    {
+        "id": "edit",
+        "children":
+        [
+            { "id": "clipboard" },
+            { "command": "copy_entire_buffer" },
+            { "command": "paste_entire_buffer" },
+            { "caption": "-" },
+        ]
+    },
+    {
+        "id": "tools",
+        "children":
+        [
+            {
+                "caption": "Markdown",
+                "id": "markdown",
+                "children":
+                [
+                    { "command": "markdown_preview", "caption": "Markdown Preview (GitHub)", "args": {"target": "browser", "parser":"github"} },
+                    { "command": "markdown_cheatsheet", "caption": "Markdown Cheatsheet" },
+                ]
+            }
+        ]
+    },
+    {
+        "caption": "My",
+        "mnemonic": "M",
+        "id": "my",
+        "children":
+        [
+            { "command": "open_file_browser_here", "caption": "Open File Browser Here", "mnemonic": "F" },
+            { "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
+            { "command": "open_powershell_here", "caption": "Open Powershell Here", "mnemonic": "P" },
+            { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
+            { "caption": "-" },
+            { "command": "delete_alternate_lines" },
+            { "command": "rename_buffer", "mnemonic": "R" },
+            { "command": "eval_in_maya", "mnemonic": "M" },
+            { "command": "strip_color_from_unity_logs", "mnemonic": "S" },
+            { "caption": "-" },
+            { "command": "toggle_command_logging" },
+        ]
+    }
+]
