@@ -1,121 +1,131 @@
 [
-	// Suppress ctrl+q from insta-quitting
-	{ "keys": ["ctrl+q"], "command": "noop" },
+    // Suppress ctrl+q from insta-quitting
+    { "keys": ["ctrl+q"], "command": "noop" },
 
-	// rational ctrl+arrow movement for ST3
-	// http://www.sublimetext.com/forum/viewtopic.php?f=3&t=17021
-	{ "keys": ["ctrl+left"], "command": "move", "args": {
-			"by": "stops", "forward": false,
-			"word_begin": true, "word_end": false,
-			"line_begin": true, "line_end": true,
-			"punct_begin": true, "punct_end": false
-		}
-	},
-	{ "keys": ["ctrl+right"], "command": "move", "args": {
-			"by": "stops", "forward": true,
-			"word_begin": true, "word_end": false,
-			"line_begin": true, "line_end": true,
-			"punct_begin": true, "punct_end": false
-		}
-	},
-	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {
-			"by": "stops", "forward": false, "extend": true,
-			"word_begin": true, "word_end": false,
-			"line_begin": true, "line_end": true,
-			"punct_begin": true, "punct_end": false
-		}
-	},
-	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {
-			"by": "stops", "forward": true, "extend": true,
-			"word_begin": true, "word_end": false,
-			"line_begin": true, "line_end": true,
-			"punct_begin": true, "punct_end": false
-		}
-	},
+    // rational ctrl+arrow movement for ST3
+    // http://www.sublimetext.com/forum/viewtopic.php?f=3&t=17021
+    { "keys": ["ctrl+left"], "command": "move", "args": {
+            "by": "stops", "forward": false,
+            "word_begin": true, "word_end": false,
+            "line_begin": true, "line_end": true,
+            "punct_begin": true, "punct_end": false
+        }
+    },
+    { "keys": ["ctrl+right"], "command": "move", "args": {
+            "by": "stops", "forward": true,
+            "word_begin": true, "word_end": false,
+            "line_begin": true, "line_end": true,
+            "punct_begin": true, "punct_end": false
+        }
+    },
+    { "keys": ["ctrl+shift+left"], "command": "move", "args": {
+            "by": "stops", "forward": false, "extend": true,
+            "word_begin": true, "word_end": false,
+            "line_begin": true, "line_end": true,
+            "punct_begin": true, "punct_end": false
+        }
+    },
+    { "keys": ["ctrl+shift+right"], "command": "move", "args": {
+            "by": "stops", "forward": true, "extend": true,
+            "word_begin": true, "word_end": false,
+            "line_begin": true, "line_end": true,
+            "punct_begin": true, "punct_end": false
+        }
+    },
 
-	// Cross-platform consistency
-	{ "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
-	{ "keys": ["alt+down"], "command": "select_lines", "args": {"forward": true} },
-	{ "keys": ["shift+insert"], "command": "paste" },
-	{ "keys": ["shift+delete"], "command": "cut" },
+    // Cross-platform consistency
+    { "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
+    { "keys": ["alt+down"], "command": "select_lines", "args": {"forward": true} },
+    { "keys": ["shift+insert"], "command": "paste" },
+    { "keys": ["shift+delete"], "command": "cut" },
 
-	{ "keys": ["alt+left"], "command": "jump_back" },
-	{ "keys": ["alt+right"], "command": "jump_forward" },
+    { "keys": ["alt+left"], "command": "jump_back" },
+    { "keys": ["alt+right"], "command": "jump_forward" },
 
-	// Find panel key bindings
-	{ "keys": ["alt+n"], "command": "find_next", "context":
-		[{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
-	},
-	{ "keys": ["alt+p"], "command": "find_prev", "context":
-		[{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
-	},
+    // Find panel key bindings
+    { "keys": ["alt+n"], "command": "find_next", "context":
+        [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+p"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+    },
 
-	// Replace panel key bindings
-	{ "keys": ["alt+n"], "command": "find_next", "context":
-		[{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
-	},
-	{ "keys": ["alt+p"], "command": "find_prev", "context":
-		[{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
-	},
+    // Replace panel key bindings
+    { "keys": ["alt+n"], "command": "find_next", "context":
+        [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+p"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
 
-	// Incremental find panel key bindings
-	{ "keys": ["alt+n"], "command": "hide_panel", "context":
-		[{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
-	},
-	{ "keys": ["alt+p"], "command": "find_prev", "context":
-		[{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
-	},
+    // Incremental find panel key bindings
+    { "keys": ["alt+n"], "command": "hide_panel", "context":
+        [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+p"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+    },
 
-	// Package: SmartCursor arrow key bindings
-	{ "keys": ["up"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": false}, "context":
-		[
-			{ "key": "auto_complete_visible", "operator": "equal", "operand": false }
-		]
-	},
-	{ "keys": ["down"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": true}, "context":
-		[
-			{ "key": "auto_complete_visible", "operator": "equal", "operand": false }
-		]
-	},
+    // Random
+    { "keys": ["ctrl+alt+c"], "command": "copy_entire_buffer" },
+    { "keys": ["ctrl+alt+v"], "command": "paste_entire_buffer" },
 
-	// Package: WordHighlight
-	{ "keys": ["alt+enter"], "command": "select_highlighted_words", "context":
-		[
-			{ "key": "setting.is_widget", "operator": "equal", "operand": false }
-		]
-	},
+    // might want this to combat more aggressive auto-complete popup in sublime 4
+    // { "keys": ["down"], "command": "hide_auto_complete", "context":
+    //  [
+    //      { "key": "auto_complete_visible", "operator": "equal", "operand": true }
+    //  ]
+    // },
 
-	// Package: PlainTasks
-	{ "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["alt+c"], "command": "plain_tasks_cancel", "context": [{"key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+enter"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+i"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+enter"], "command": "plain_tasks_new_with_date","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+a"], "command": "plain_tasks_archive","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+o"], "command": "plain_tasks_archive_org","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+u"], "command": "plain_tasks_open_url","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["alt+o"], "command": "plain_tasks_open_link","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+r"], "command": "plain_tasks_goto_tag", "context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["tab"], "command": "plain_task_insert_date", "context":
-		[
-			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-			{ "key": "selector", "operator": "equal", "operand": "text.todo" },
-			{ "key": "preceding_text", "operator": "regex_contains", "operand": "(@started|@toggle|@created)(?!\\([\\d\\w,\\.:\\-\/ @]*\\))", "match_all": true }
-		]
-	},
-	{ "keys": ["tab"], "command": "plain_tasks_replace_short_date", "context":
-		[
-			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-			{ "key": "selector", "operator": "equal", "operand": "text.todo" },
-			{ "key": "preceding_text", "operator": "regex_contains", "operand": "@due\\([^\\)]+(?!.*?\\))", "match_all": true },
-			{ "key": "following_text", "operator": "regex_contains", "operand": "[ \t]*\\)", "match_all": true }
-		]
-	},
-	{ "keys": ["tab"], "command": "plain_tasks_re_calculate_time_for_tasks", "context":
-		[
-			{ "key": "selector", "operator": "equal", "operand": "text.todo meta.tag.todo.completed, text.todo meta.tag.todo.cancelled" }
-		]
-	},
+    // Package: SmartCursor arrow key bindings
+    { "keys": ["up"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": false}, "context":
+        [
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    },
+    { "keys": ["down"], "command": "smart_cursor", "args": {"cmd": "move", "by": "lines", "forward": true}, "context":
+        [
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    },
 
-	{ "keys": ["ctrl+d"], "command": "find_under_expand" }
+    // Package: WordHighlight
+    { "keys": ["alt+enter"], "command": "select_highlighted_words", "context":
+        [
+            { "key": "setting.is_widget", "operator": "equal", "operand": false }
+        ]
+    },
+
+    // Package: PlainTasks
+    { "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["alt+c"], "command": "plain_tasks_cancel", "context": [{"key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+enter"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+i"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+shift+enter"], "command": "plain_tasks_new_with_date","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+shift+a"], "command": "plain_tasks_archive","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+shift+o"], "command": "plain_tasks_archive_org","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+shift+u"], "command": "plain_tasks_open_url","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["alt+o"], "command": "plain_tasks_open_link","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["ctrl+shift+r"], "command": "plain_tasks_goto_tag", "context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+    { "keys": ["tab"], "command": "plain_task_insert_date", "context":
+        [
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "selector", "operator": "equal", "operand": "text.todo" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "(@started|@toggle|@created)(?!\\([\\d\\w,\\.:\\-\/ @]*\\))", "match_all": true }
+        ]
+    },
+    { "keys": ["tab"], "command": "plain_tasks_replace_short_date", "context":
+        [
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "selector", "operator": "equal", "operand": "text.todo" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "@due\\([^\\)]+(?!.*?\\))", "match_all": true },
+            { "key": "following_text", "operator": "regex_contains", "operand": "[ \t]*\\)", "match_all": true }
+        ]
+    },
+    { "keys": ["tab"], "command": "plain_tasks_re_calculate_time_for_tasks", "context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "text.todo meta.tag.todo.completed, text.todo meta.tag.todo.cancelled" }
+        ]
+    },
+    { "keys": ["ctrl+d"], "command": "find_under_expand" },
 ]

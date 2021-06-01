@@ -1,5 +1,15 @@
 [
     {
+        "id": "edit",
+        "children":
+        [
+            { "id": "clipboard" },
+            { "command": "copy_entire_buffer" },
+            { "command": "paste_entire_buffer" },
+            { "caption": "-" },
+        ]
+    },
+    {
         "id": "tools",
         "children":
         [
@@ -26,8 +36,9 @@
             { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
             { "caption": "-" },
             { "command": "delete_alternate_lines" },
-            { "command": "rename_buffer", "caption": "Rename Buffer", "mnemonic": "R" },
-            { "command": "eval_in_maya", "caption": "Eval In Maya", "mnemonic": "M" },
+            { "command": "rename_buffer", "mnemonic": "R" },
+            { "command": "eval_in_maya", "mnemonic": "M" },
+            { "command": "strip_color_from_unity_logs", "mnemonic": "S" },
             { "caption": "-" },
             { "command": "toggle_command_logging" },
         ]
