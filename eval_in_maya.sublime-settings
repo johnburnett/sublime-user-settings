@@ -1,0 +1,5 @@
+{
+	// The port number that will be used to communicate with Maya.
+    // Assumed to be opened with sourceType='python'
+	"maya_port" : 7111
+}
