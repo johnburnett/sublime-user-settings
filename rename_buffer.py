@@ -2,7 +2,7 @@ import sublime
 import sublime_plugin
 
 
-class RenameBuffer(sublime_plugin.TextCommand):
+class RenameBufferCommand(sublime_plugin.TextCommand):
     def is_enabled(self):
         return self.view.file_name() is None
 

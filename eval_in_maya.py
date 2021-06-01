@@ -75,7 +75,7 @@ def error(msg):
 def escape_filepath(filepath):
     return filepath.replace('\\', '\\\\')
 
-class eval_in_maya_command(sublime_plugin.TextCommand):
+class EvalInMayaCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         syntax = self._get_syntax()
         if syntax is None:

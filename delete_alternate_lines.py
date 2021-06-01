@@ -2,7 +2,7 @@ import sublime
 import sublime_plugin
 
 
-class delete_alternate_lines_command(sublime_plugin.TextCommand):
+class DeleteAlternateLinesCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         sel = self.view.sel()
         if not sel:
