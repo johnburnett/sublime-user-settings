@@ -41,6 +41,7 @@
             { "command": "strip_color_from_unity_logs", "mnemonic": "S" },
             { "caption": "-" },
             { "command": "toggle_command_logging" },
+            { "command": "toggle_indexing" },
         ]
     }
 ]

@@ -1,12 +1,19 @@
 {
     "always_show_minimap_viewport": true,
     "auto_complete_cycle": true,
+    "auto_complete_include_snippets": false,
+    "auto_complete_include_snippets_when_typing": false,
+    "auto_complete_use_history": false,
     "auto_find_in_selection": true,
+    "caret_extra_top": 2,
+    "caret_extra_bottom": 2,
     "caret_extra_width": 1,
     "caret_style": "smooth",
+    "close_deleted_files": false,
     "close_windows_when_empty": false,
     "color_scheme": "Packages/User/johnburnett.sublime-color-scheme",
     "draw_minimap_border": true,
+    "draw_unicode_white_space": "all",
     "enable_tab_scrolling": false,
     "ensure_newline_at_eof_on_save": true,
     "fade_fold_buttons": false,
@@ -26,7 +33,7 @@
     "highlight_modified_tabs": true,
     "ignored_packages":
     [
-        "Vintage"
+        "Vintage",
     ],
     "ignored_words":
     [

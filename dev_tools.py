@@ -1,8 +1,10 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
 
-class toggle_command_logging(sublime_plugin.WindowCommand):
+
+class ToggleCommandLoggingCommand(sublime_plugin.WindowCommand):
     def __init__(self, window):
-        super(toggle_command_logging, self).__init__(window)
+        super(ToggleCommandLoggingCommand, self).__init__(window)
         self.logEnabled = False
 
     def run(self):
@@ -13,6 +15,20 @@ class toggle_command_logging(sublime_plugin.WindowCommand):
         else:
             self.window.run_command('hide_panel', {'panel': 'console'} )
 
+    def is_checked(self):
+        return self.logEnabled
+
     def description(self):
-        state = 'Disable' if self.logEnabled else 'Enable'
-        return state + ' Command Logging'
+        return 'Command Logging'
+
+
+class ToggleIndexingCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        settings = sublime.load_settings('Preferences.sublime-settings')
+        settings.set('index_files', not settings.get('index_files', True))
+
+    def is_checked(self):
+        return bool(sublime.load_settings('Preferences.sublime-settings').get('index_files', True))
+
+    def description(self):
+        return 'Indexing'
