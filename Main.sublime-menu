@@ -38,7 +38,7 @@
             { "command": "delete_alternate_lines" },
             { "command": "rename_buffer", "mnemonic": "R" },
             { "command": "eval_in_maya", "mnemonic": "M" },
-            { "command": "strip_color_from_unity_logs", "mnemonic": "S" },
+            { "command": "strip_color_from_unity_log", "mnemonic": "S" },
             { "caption": "-" },
             { "command": "toggle_command_logging" },
             { "command": "toggle_indexing" },
