@@ -1,67 +1,67 @@
 {
-    "always_show_minimap_viewport": true,
-    "auto_complete_cycle": true,
-    "auto_complete_include_snippets": false,
-    "auto_complete_include_snippets_when_typing": false,
-    "auto_complete_use_history": false,
-    "auto_find_in_selection": true,
-    "caret_extra_top": 2,
-    "caret_extra_bottom": 2,
-    "caret_extra_width": 1,
-    "caret_style": "smooth",
-    "close_deleted_files": false,
-    "close_windows_when_empty": false,
-    "color_scheme": "Packages/User/johnburnett.sublime-color-scheme",
-    "draw_minimap_border": true,
-    "draw_unicode_white_space": "all",
-    "enable_tab_scrolling": false,
-    "ensure_newline_at_eof_on_save": true,
-    "fade_fold_buttons": false,
-    "file_exclude_patterns":
-    [
-    ],
-    "find_selected_text": true,
-    "folder_exclude_patterns":
-    [
-        ".git",
-        ".svn"
-    ],
-    "font_face": "Monospace",
-    "font_size": 10,
-    "hide_new_tab_button": true,
-    "highlight_line": true,
-    "highlight_modified_tabs": true,
-    "ignored_packages":
-    [
-        "Vintage",
-    ],
-    "ignored_words":
-    [
-        "bfdlaunch"
-    ],
-    "indent_guide_options":
-    [
-        "draw_normal",
-        "draw_active"
-    ],
-    "match_selection": false,
-    "mouse_wheel_switches_tabs": false,
-    "move_to_limit_on_up_down": false,
-    "rulers":
-    [
-        72,
-        80,
-        100
-    ],
-    "scroll_past_end": true,
-    "scroll_speed": 0.0,
-    "show_encoding": true,
-    "show_full_path": true,
-    "show_line_endings": true,
-    "show_tab_close_buttons": false,
-    "spell_check": true,
-    "theme": "Default.sublime-theme",
-    "translate_tabs_to_spaces": true,
-    "tree_animation_enabled": false,
-    "word_wrap": false,
+	"always_show_minimap_viewport": true,
+	"auto_complete_cycle": true,
+	"auto_complete_include_snippets": false,
+	"auto_complete_include_snippets_when_typing": false,
+	"auto_complete_use_history": false,
+	"auto_find_in_selection": true,
+	"caret_extra_top": 2,
+	"caret_extra_bottom": 2,
+	"caret_extra_width": 1,
+	"caret_style": "smooth",
+	"close_deleted_files": false,
+	"close_windows_when_empty": false,
+	"color_scheme": "Packages/User/johnburnett.sublime-color-scheme",
+	"draw_minimap_border": true,
+	"draw_unicode_white_space": "all",
+	"enable_tab_scrolling": false,
+	"ensure_newline_at_eof_on_save": true,
+	"fade_fold_buttons": false,
+	"file_exclude_patterns":
+	[
+	],
+	"find_selected_text": true,
+	"folder_exclude_patterns":
+	[
+		".git",
+		".svn"
+	],
+	"font_face": "Monospace",
+	"font_size": 10,
+	"hide_new_tab_button": true,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"ignored_words":
+	[
+		"bfdlaunch"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"match_selection": false,
+	"mouse_wheel_switches_tabs": false,
+	"move_to_limit_on_up_down": false,
+	"rulers":
+	[
+		72,
+		80,
+		100
+	],
+	"scroll_past_end": true,
+	"scroll_speed": 0.0,
+	"show_encoding": true,
+	"show_full_path": true,
+	"show_line_endings": true,
+	"show_tab_close_buttons": false,
+	"spell_check": true,
+	"theme": "Default.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"tree_animation_enabled": false,
+	"word_wrap": false,
 }

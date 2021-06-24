@@ -1,78 +1,78 @@
 [
-    {
-        "id": "edit",
-        "children":
-        [
-            { "id": "clipboard" },
-            { "command": "copy_entire_buffer" },
-            { "command": "paste_entire_buffer" },
-            { "caption": "-" },
-        ]
-    },
-    {
-        "id": "tools",
-        "children":
-        [
-            {
-                "caption": "Markdown",
-                "id": "markdown",
-                "children":
-                [
-                    { "command": "markdown_preview", "caption": "Markdown Preview (GitHub)", "args": {"target": "browser", "parser":"github"} },
-                    { "command": "markdown_cheatsheet", "caption": "Markdown Cheatsheet" },
-                ]
-            }
-        ]
-    },
-    {
-        "caption": "Preferences",
-        "mnemonic": "n",
-        "id": "preferences",
-        "children":
-        [
-            {
-                "caption": "Package Settings",
-                "mnemonic": "P",
-                "id": "package-settings",
-                "children":
-                [
-                    {
-                        "caption": "Per-Host Settings",
-                        "children":
-                        [
-                            {
-                                "command": "edit_settings", "args":
-                                {
-                                    "base_file": "${packages}/Default/Preferences.sublime-settings",
-                                    "user_file": "${packages}/User/per_host_settings.sublime-settings",
-                                    "default": "{\n\t\"YOUR_HOST_NAME$0\": {\n\t\t\"universal\": { // <universal | linux | osx | windows>\n\t\t\t\"Preferences.sublime-settings\": {\n\t\t\t\t\"font_size\": 10,\n\t\t\t},\n\t\t},\n\t},\n}\n"
-                                },
-                                "caption": "Settings"
-                            },
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "caption": "My",
-        "mnemonic": "M",
-        "id": "my",
-        "children":
-        [
-            { "command": "open_file_browser_here", "caption": "Open File Browser Here", "mnemonic": "F" },
-            { "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
-            { "command": "open_powershell_here", "caption": "Open Powershell Here", "mnemonic": "P" },
-            { "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
-            { "caption": "-" },
-            { "command": "delete_alternate_lines" },
-            { "command": "rename_buffer", "mnemonic": "R" },
-            { "command": "eval_in_maya", "mnemonic": "M" },
-            { "command": "strip_color_from_unity_log", "mnemonic": "S" },
-            { "caption": "-" },
-            { "command": "toggle_command_logging" },
-            { "command": "toggle_indexing" },
-        ]
-    }
+	{
+		"id": "edit",
+		"children":
+		[
+			{ "id": "clipboard" },
+			{ "command": "copy_entire_buffer" },
+			{ "command": "paste_entire_buffer" },
+			{ "caption": "-" },
+		]
+	},
+	{
+		"id": "tools",
+		"children":
+		[
+			{
+				"caption": "Markdown",
+				"id": "markdown",
+				"children":
+				[
+					{ "command": "markdown_preview", "caption": "Markdown Preview (GitHub)", "args": {"target": "browser", "parser":"github"} },
+					{ "command": "markdown_cheatsheet", "caption": "Markdown Cheatsheet" },
+				]
+			}
+		]
+	},
+	{
+		"caption": "Preferences",
+		"mnemonic": "n",
+		"id": "preferences",
+		"children":
+		[
+			{
+				"caption": "Package Settings",
+				"mnemonic": "P",
+				"id": "package-settings",
+				"children":
+				[
+					{
+						"caption": "Per-Host Settings",
+						"children":
+						[
+							{
+								"command": "edit_settings", "args":
+								{
+									"base_file": "${packages}/Default/Preferences.sublime-settings",
+									"user_file": "${packages}/User/per_host_settings.sublime-settings",
+									"default": "{\n\t\"YOUR_HOST_NAME$0\": {\n\t\t\"universal\": { // <universal | linux | osx | windows>\n\t\t\t\"Preferences.sublime-settings\": {\n\t\t\t\t\"font_size\": 10,\n\t\t\t},\n\t\t},\n\t},\n}\n"
+								},
+								"caption": "Settings"
+							},
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"caption": "My",
+		"mnemonic": "M",
+		"id": "my",
+		"children":
+		[
+			{ "command": "open_file_browser_here", "caption": "Open File Browser Here", "mnemonic": "F" },
+			{ "command": "open_cmd_here", "caption": "Open Cmd Here", "mnemonic": "C" },
+			{ "command": "open_powershell_here", "caption": "Open Powershell Here", "mnemonic": "P" },
+			{ "command": "open_bash_here", "caption": "Open Bash Here", "mnemonic": "B" },
+			{ "caption": "-" },
+			{ "command": "delete_alternate_lines" },
+			{ "command": "rename_buffer", "mnemonic": "R" },
+			{ "command": "eval_in_maya", "mnemonic": "M" },
+			{ "command": "strip_color_from_unity_log", "mnemonic": "S" },
+			{ "caption": "-" },
+			{ "command": "toggle_command_logging" },
+			{ "command": "toggle_indexing" },
+		]
+	}
 ]
