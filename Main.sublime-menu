@@ -25,6 +25,37 @@
         ]
     },
     {
+        "caption": "Preferences",
+        "mnemonic": "n",
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "Per-Host Settings",
+                        "children":
+                        [
+                            {
+                                "command": "edit_settings", "args":
+                                {
+                                    "base_file": "${packages}/Default/Preferences.sublime-settings",
+                                    "user_file": "${packages}/User/per_host_settings.sublime-settings",
+                                    "default": "{\n\t\"YOUR_HOST_NAME$0\": {\n\t\t\"universal\": { // <universal | linux | osx | windows>\n\t\t\t\"Preferences.sublime-settings\": {\n\t\t\t\t\"font_size\": 10,\n\t\t\t},\n\t\t},\n\t},\n}\n"
+                                },
+                                "caption": "Settings"
+                            },
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "caption": "My",
         "mnemonic": "M",
         "id": "my",
