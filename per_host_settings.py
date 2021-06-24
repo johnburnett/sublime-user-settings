@@ -13,26 +13,50 @@ class per_host_settings(sublime_plugin.EventListener):
         callbacks = []
         if '_per_host_settings_callbacks_installed' not in globals():
             try:
+                host_settings_file = 'per_host_settings.sublime-settings'
+                all_host_settings = sublime.load_settings(host_settings_file)
                 hostname = socket.gethostname().lower()
-                packages_path = sublime.packages_path()
-                host_settings_file = os.path.join(packages_path, "User", "per_host_settings.{0}.json".format(hostname))
-                try:
-                    with open(host_settings_file) as f:
-                        host_settings = json.load(f)
-                except:
-                    host_settings = None
+                host_settings = all_host_settings.get(hostname)
+                if host_settings is None:
+                    return callbacks
+                if not isinstance(host_settings, dict):
+                    sublime.error_message('Settings for host "%s" is not a dict in "%s".' % (hostname, host_settings_file))
+                    return callbacks
 
-                if host_settings:
-                    print('Installing per-host settings from "{0}"'.format(host_settings_file))
-                    for base_name, settings_values in host_settings.items():
-                        settings = sublime.load_settings(base_name)
-                        for name, value in settings_values.items():
-                            print('  "{0}, {1} = {2}"'.format(base_name, name, value))
-                            def make_callback(settings, name, value):
-                                return lambda: self.apply_value(settings, name, value)
-                            callback = make_callback(settings, name, value)
-                            callbacks.append(callback)
-                            settings.add_on_change(name, callback)
+                universal_settings = host_settings.get('universal', {})
+                if not isinstance(universal_settings, dict):
+                    sublime.error_message('"universal" host settings is not a dict in "%s".' % host_settings_file)
+                    return callbacks
+
+                platform_settings = host_settings.get(sublime.platform(), {})
+                if not isinstance(platform_settings, dict):
+                    sublime.error_message('"%s" host settings is not a dict in "%s".' % (host_settings_file, sublime.platform()))
+                    return callbacks
+
+                composite_settings = universal_settings
+                for settings_file, overlay_settings in platform_settings.items():
+                    settings_values = composite_settings.setdefault(settings_file, {})
+                    settings_values.update(overlay_settings)
+                    for key in list(settings_values.keys()):
+                        if settings_values[key] is None:
+                            del settings_values[key]
+
+                for settings_file in list(composite_settings.keys()):
+                    if not composite_settings[settings_file]:
+                        del composite_settings[settings_file]
+                if not composite_settings:
+                    return callbacks
+
+                print('Installing per-host settings for "%s"' % hostname)
+                for settings_file, settings_values in composite_settings.items():
+                    settings = sublime.load_settings(settings_file)
+                    for name, value in settings_values.items():
+                        print('  "{0}, {1} = {2}"'.format(settings_file, name, value))
+                        def make_callback(settings, name, value):
+                            return lambda: self.apply_value(settings, name, value)
+                        callback = make_callback(settings, name, value)
+                        callbacks.append(callback)
+                        settings.add_on_change(name, callback)
             finally:
                 global _per_host_settings_callbacks_installed
                 _per_host_settings_callbacks_installed = True
