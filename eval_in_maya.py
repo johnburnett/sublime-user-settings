@@ -33,8 +33,7 @@ REUSE_TEMP_FILE = False
 
 MAYA_BUFFER_SIZE = 4096
 
-COMMAND_TEMPLATE = '''
-from __future__ import print_function
+EVAL_COMMAND_TEMPLATE = '''
 import __main__
 import datetime
 import sys
@@ -68,42 +67,35 @@ finally:
             pass
 '''
 
+# todo: print "None" if expr is None
+# todo: printing cmds.getAttr('gameExporterPreset1.convertNurbsSurfaceTo') fails (quoting issue?)
+
+PRINT_COMMAND_TEMPLATE = '''
+import __main__
+try:
+    code = compile('print("{expr} =", repr({expr}))', "<string>", 'exec')
+    exec(code, __main__.__dict__, __main__.__dict__)
+except:
+    print('Error printing "{expr}"')
+'''
+
 
 def error(msg):
     sublime.error_message("%s: %s" % (MY_NAME, msg))
 
+
 def escape_filepath(filepath):
     return filepath.replace('\\', '\\\\')
 
-class EvalInMayaCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        syntax = self._get_syntax()
-        if syntax is None:
-            error("Current file syntax is not supported.")
-            return
 
-        settingsPath = '%s.sublime-settings' % MY_NAME
-        settings = sublime.load_settings(settingsPath)
-
-        # Always use a file on disk to run in Maya, so the command port buffer doesn't
-        # have to be huge, we don't have to worry about escaping all quotes, etc.
-        # If current view is not dirty, use that file, otherwise use a temp file that
-        # will be cleaned up after running.
-
-        code_filepath, is_temp = self._get_code_filepath()
-        should_delete = is_temp and DELETE_TEMP_FILE
-        code_filepath = escape_filepath(code_filepath)
-        command = COMMAND_TEMPLATE.format(
-            my_name=MY_NAME,
-            syntax=syntax,
-            code_filepath=code_filepath,
-            should_delete=should_delete,
-        )
+class MayaCommand(sublime_plugin.TextCommand):
+    def send_to_maya(self, command):
         commandBytes = command.encode(encoding='utf-8')
         if len(commandBytes) > MAYA_BUFFER_SIZE:
             error("Command too large, and I'm too lazy to handle this case right now.")
             return
 
+        settings = self.get_settings()
         sock = None
         try:
             host = '127.0.0.1'
@@ -113,23 +105,18 @@ class EvalInMayaCommand(sublime_plugin.TextCommand):
             sock.sendall(commandBytes)
         except:
             error("Error sending command to Maya.\n\nSee Sublime console for details.")
-            if should_delete:
-                try:
-                    os.remove(code_filepath)
-                except:
-                    pass
             raise
         finally:
             if sock:
                 sock.close()
 
 
-    def is_enabled(self):
-        syntax = self._get_syntax()
-        return syntax is not None
+    def get_settings(self):
+        settingsPath = '%s.sublime-settings' % MY_NAME
+        return sublime.load_settings(settingsPath)
 
 
-    def _get_syntax(self):
+    def get_syntax(self):
         syntax = os.path.splitext(os.path.basename(self.view.settings().get('syntax')))[0].lower()
         if 'python' in syntax:
             return 'python'
@@ -137,6 +124,44 @@ class EvalInMayaCommand(sublime_plugin.TextCommand):
             return 'mel'
         else:
             return None
+
+
+class EvalInMayaCommand(MayaCommand):
+    def run(self, edit):
+        syntax = self.get_syntax()
+        if syntax is None:
+            error("Current file syntax is not supported.")
+            return
+
+        # Always use a file on disk to run in Maya, so the command port buffer doesn't
+        # have to be huge, we don't have to worry about escaping all quotes, etc.
+        # If current view is not dirty, use that file, otherwise use a temp file that
+        # will be cleaned up after running.
+
+        code_filepath, is_temp = self._get_code_filepath()
+        should_delete = is_temp and DELETE_TEMP_FILE
+        code_filepath = escape_filepath(code_filepath)
+        command = EVAL_COMMAND_TEMPLATE.format(
+            my_name=MY_NAME,
+            syntax=syntax,
+            code_filepath=code_filepath,
+            should_delete=should_delete,
+        )
+
+        try:
+            self.send_to_maya(command)
+        except:
+            if should_delete:
+                try:
+                    os.remove(code_filepath)
+                except:
+                    pass
+            raise
+
+
+    def is_enabled(self):
+        syntax = self.get_syntax()
+        return syntax is not None
 
 
     def _get_code_filepath(self):
@@ -199,3 +224,22 @@ class EvalInMayaCommand(sublime_plugin.TextCommand):
                 yield textwrap.dedent(chunk)
         else:
             yield self.view.substr(sublime.Region(0, self.view.size()))
+
+
+class PrintInMayaCommand(MayaCommand):
+    def run(self, edit):
+        syntax = self.get_syntax()
+        if syntax != 'python':
+            error("Current file syntax must be Python.")
+            return
+
+        regions = [r for r in self.view.sel() if not r.empty()]
+        for region in regions:
+            expr = self.view.substr(region)
+            expr = expr.strip()
+            if not expr:
+                continue
+            if '\n' in expr:
+                continue
+            command = PRINT_COMMAND_TEMPLATE.format(expr=expr)
+            self.send_to_maya(command)

@@ -89,9 +89,19 @@
 		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
 	},
 	{ 
+		"keys": ["ctrl+shift+enter"], 
+		"command": "print_in_maya",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+	},
+	{ 
+		"keys": ["ctrl+shift+keypad_enter"], 
+		"command": "print_in_maya",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+	},
+	{ 
 		"keys": ["ctrl+enter"], 
 		"command": "eval_in_maya",
-		// "context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
 	},
 	{ 
 		"keys": ["ctrl+keypad_enter"], 
@@ -119,12 +129,11 @@
 	},
 
 	// Package: PlainTasks
-	{ "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
+	{ "keys": ["alt+a"], "command": "plain_tasks_archive","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["alt+c"], "command": "plain_tasks_cancel", "context": [{"key": "selector", "operator": "equal", "operand": "text.todo" }] },
+	{ "keys": ["alt+d"], "command": "plain_tasks_complete","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["ctrl+enter"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+i"], "command": "plain_tasks_new","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["ctrl+shift+enter"], "command": "plain_tasks_new_with_date","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-	{ "keys": ["ctrl+shift+a"], "command": "plain_tasks_archive","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["ctrl+shift+o"], "command": "plain_tasks_archive_org","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["ctrl+shift+u"], "command": "plain_tasks_open_url","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
 	{ "keys": ["alt+o"], "command": "plain_tasks_open_link","context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
