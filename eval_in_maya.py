@@ -1,9 +1,22 @@
+import enum
 import os
 import socket
 import tempfile
 import textwrap
 
 import sublime, sublime_plugin
+
+
+class EvalSource(enum.Enum):
+    file = enum.auto()
+    selection = enum.auto()
+    eval_buffer = enum.auto()
+
+    @staticmethod
+    def fromString(s):
+        assert s in dir(EvalSource)
+        return EvalSource[s]
+
 
 MY_NAME = os.path.splitext(os.path.basename(__file__))[0]
 
@@ -79,6 +92,8 @@ except:
     print('Error printing "{expr}"')
 '''
 
+eval_buffer = {}
+
 
 def error(msg):
     sublime.error_message("%s: %s" % (MY_NAME, msg))
@@ -127,18 +142,21 @@ class MayaCommand(sublime_plugin.TextCommand):
 
 
 class EvalInMayaCommand(MayaCommand):
-    def run(self, edit):
+    def run(self, edit, eval_source='selection'):
         syntax = self.get_syntax()
         if syntax is None:
             error("Current file syntax is not supported.")
             return
+
+        assert isinstance(eval_source, str)
+        eval_source = EvalSource.fromString(eval_source)
 
         # Always use a file on disk to run in Maya, so the command port buffer doesn't
         # have to be huge, we don't have to worry about escaping all quotes, etc.
         # If current view is not dirty, use that file, otherwise use a temp file that
         # will be cleaned up after running.
 
-        code_filepath, is_temp = self._get_code_filepath()
+        code_filepath, is_temp = self._get_code_filepath(eval_source)
         should_delete = is_temp and DELETE_TEMP_FILE
         code_filepath = escape_filepath(code_filepath)
         command = EVAL_COMMAND_TEMPLATE.format(
@@ -164,7 +182,7 @@ class EvalInMayaCommand(MayaCommand):
         return syntax is not None
 
 
-    def _get_code_filepath(self):
+    def _get_code_filepath(self, eval_source):
         """Returns a tuple of (filepath, is_temp)
         """
 
@@ -175,14 +193,13 @@ class EvalInMayaCommand(MayaCommand):
         # eval py.py without saving
         # save py.py and eval again... this run will show the old py.py lines
 
-        eval_regions = [r for r in self.view.sel() if not r.empty()]
         if REUSE_TEMP_FILE:
             code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
             file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
         else:
             file_no, code_filepath = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, suffix='.txt', text=True)
         try:
-            for chunk in self._get_eval_chunks(eval_regions):
+            for chunk in self._get_eval_chunks(eval_source):
                 os.write(file_no, chunk.encode(encoding='utf-8'))
         finally:
             os.close(file_no)
@@ -190,40 +207,64 @@ class EvalInMayaCommand(MayaCommand):
         return code_filepath, is_temp
 
 
-    def _get_eval_chunks(self, eval_regions):
-        if eval_regions:
-            lines_written = -1
-            for eval_region in eval_regions:
-                ## dedents, but doesn't preserve line numbering
-                # region_text = self.view.substr(eval_region)
-                # yield textwrap.dedent(region_text)
+    def _get_eval_chunks(self, eval_source):
+        if eval_source == EvalSource.eval_buffer:
+            syntax = self.get_syntax()
+            buffer = eval_buffer.get(syntax)
+            if buffer:
+                yield buffer
+            return
 
-                ## preserves line numbering, but doesn't dedent
-                # region_start_line = self.view.rowcol(eval_region.begin())[0]
-                # for region_line in self.view.split_by_newlines(eval_region):
-                #     lineno = self.view.rowcol(region_line.begin())[0]
-                #     for ii in range(lineno - lines_written):
-                #         yield '\n'
-                #     lines_written = lineno
-                #     yield self.view.substr(region_line)
+        eval_regions = []
+        if eval_source == EvalSource.selection:
+            eval_regions = [r for r in self.view.sel() if not r.empty()]
+        if not eval_regions or eval_source == EvalSource.file:
+            eval_regions = [sublime.Region(0, self.view.size())]
 
-                # Attempts to take each chunk of selected text, dedent it to
-                # remove excess leading whitespace and make it syntactically
-                # correct Python, and preserve original line numbers to make
-                # any reported errors easier to find.  Having multiple
-                # regions selected on a single line will lead to odd (and
-                # likely invalid) results.
-                chunk = ''
-                for region_line in self.view.split_by_newlines(eval_region):
-                    lineno = self.view.rowcol(region_line.begin())[0]
-                    padding = lineno - lines_written
-                    for ii in range(padding - 1):
-                        yield '\n'
-                    lines_written = lineno
-                    chunk += self.view.substr(region_line) + '\n'
-                yield textwrap.dedent(chunk)
-        else:
-            yield self.view.substr(sublime.Region(0, self.view.size()))
+        lines_written = -1
+        for eval_region in eval_regions:
+            ## dedents, but doesn't preserve line numbering
+            # region_text = self.view.substr(eval_region)
+            # yield textwrap.dedent(region_text)
+
+            ## preserves line numbering, but doesn't dedent
+            # region_start_line = self.view.rowcol(eval_region.begin())[0]
+            # for region_line in self.view.split_by_newlines(eval_region):
+            #     lineno = self.view.rowcol(region_line.begin())[0]
+            #     for ii in range(lineno - lines_written):
+            #         yield '\n'
+            #     lines_written = lineno
+            #     yield self.view.substr(region_line)
+
+            # Attempts to take each chunk of selected text, dedent it to
+            # remove excess leading whitespace and make it syntactically
+            # correct Python, and preserve original line numbers to make
+            # any reported errors easier to find.  Having multiple
+            # regions selected on a single line will lead to odd (and
+            # likely invalid) results.
+            chunk = ''
+            for region_line in self.view.split_by_newlines(eval_region):
+                lineno = self.view.rowcol(region_line.begin())[0]
+                padding = lineno - lines_written
+                for ii in range(padding - 1):
+                    yield '\n'
+                lines_written = lineno
+                chunk += self.view.substr(region_line) + '\n'
+            yield textwrap.dedent(chunk)
+        return
+
+
+class SetMayaEvalBufferCommand(MayaCommand):
+    def run(self, edit):
+        syntax = self.get_syntax()
+        if not syntax:
+            return
+        selected_regions = self.view.sel()
+        if len(selected_regions) != 1:
+            return
+        region = selected_regions[0]
+        text = textwrap.dedent(self.view.substr(region))
+        eval_buffer[syntax] = textwrap.dedent(self.view.substr(region))
 
 
 class PrintInMayaCommand(MayaCommand):

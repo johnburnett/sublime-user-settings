@@ -89,6 +89,12 @@
 		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
 	},
 	{ 
+		"keys": ["ctrl+alt+enter"], 
+		"command": "eval_in_maya",
+		"args": {"eval_source": "eval_buffer"},
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+	},
+	{ 
 		"keys": ["ctrl+shift+enter"], 
 		"command": "print_in_maya",
 		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
@@ -101,6 +107,12 @@
 	{ 
 		"keys": ["ctrl+enter"], 
 		"command": "eval_in_maya",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
+	},
+	{ 
+		"keys": ["ctrl+alt+enter"], 
+		"command": "eval_in_maya",
+		"args": {"eval_source": "eval_buffer"},
 		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
 	},
 	{ 
