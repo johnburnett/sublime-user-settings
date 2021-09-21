@@ -33,6 +33,11 @@
 		}
 	},
 
+	{ "keys": ["ctrl+alt+left"], "command": "move", "args": {"by": "words", "forward": false} },
+	{ "keys": ["ctrl+alt+right"], "command": "move", "args": {"by": "word_ends", "forward": true} },
+	{ "keys": ["ctrl+alt+shift+left"], "command": "move", "args": {"by": "words", "forward": false, "extend": true} },
+	{ "keys": ["ctrl+alt+shift+right"], "command": "move", "args": {"by": "word_ends", "forward": true, "extend": true} },
+
 	// Cross-platform consistency
 	{ "keys": ["alt+up"], "command": "select_lines", "args": {"forward": false} },
 	{ "keys": ["alt+down"], "command": "select_lines", "args": {"forward": true} },
