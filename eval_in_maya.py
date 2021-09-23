@@ -54,7 +54,7 @@ import maya.cmds
 import maya.mel
 try:
     nowStr = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    execLine = '# {my_name} %s' % nowStr
+    execLine = f'# {my_name} {{nowStr}}'
     trailingHashes = '#' * max(0, 80 - len(execLine))
     maya.cmds.undoInfo(openChunk=True, chunkName="Sublime Code Eval")
     if '{syntax}' == 'python':
@@ -64,6 +64,10 @@ try:
         exec(code, __main__.__dict__, __main__.__dict__)
     else:
         maya.mel.eval('rehash; source "{code_filepath}"')
+    msg = f'<span style="color:rgb(255,192,192)">{{nowStr}}: Evaluated Sublime code</span>'
+    maya.cmds.inViewMessage(statusMessage=msg, fade=True, fadeInTime=0, fadeStayTime=500, fadeOutTime=500)
+    # Hack to forces inViewMessage to show when Maya window doesn't have focus
+    maya.cmds.setFocus('MayaWindow')
 except Exception as ex:
     # Directly call excepthook, as raising from this code seems to get swallowed
     # by Maya somehow.  Not using traceback because there might be a custom
@@ -96,7 +100,7 @@ eval_buffer = {}
 
 
 def error(msg):
-    sublime.error_message("%s: %s" % (MY_NAME, msg))
+    sublime.error_message(f"{MY_NAME}: {msg}")
 
 
 def escape_filepath(filepath):
@@ -127,7 +131,7 @@ class MayaCommand(sublime_plugin.TextCommand):
 
 
     def get_settings(self):
-        settingsPath = '%s.sublime-settings' % MY_NAME
+        settingsPath = f'{MY_NAME}.sublime-settings'
         return sublime.load_settings(settingsPath)
 
 
@@ -197,7 +201,7 @@ class EvalInMayaCommand(MayaCommand):
             code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
             file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
         else:
-            file_no, code_filepath = tempfile.mkstemp(prefix='%s_temp_' % MY_NAME, suffix='.txt', text=True)
+            file_no, code_filepath = tempfile.mkstemp(prefix=f'{MY_NAME}_temp_', suffix='.txt', text=True)
         try:
             for chunk in self._get_eval_chunks(eval_source):
                 os.write(file_no, chunk.encode(encoding='utf-8'))
