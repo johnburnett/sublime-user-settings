@@ -4,6 +4,8 @@
 	"auto_complete_include_snippets": false,
 	"auto_complete_include_snippets_when_typing": false,
 	"auto_complete_use_history": false,
+	"auto_complete_use_index": false,
+	"auto_complete_preserve_order": "none",
 	"auto_find_in_selection": true,
 	"caret_extra_top": 2,
 	"caret_extra_bottom": 2,
