@@ -13,7 +13,7 @@
 	"caret_style": "smooth",
 	"close_deleted_files": false,
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/User/johnburnett.sublime-color-scheme",
+	"color_scheme": "johnburnett.sublime-color-scheme",
 	"draw_minimap_border": true,
 	"draw_unicode_white_space": "all",
 	"enable_tab_scrolling": false,
@@ -31,6 +31,7 @@
 	"font_face": "Monospace",
 	"font_size": 10,
 	"hide_new_tab_button": true,
+	"hardware_acceleration": "opengl",
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
