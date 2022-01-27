@@ -26,77 +26,7 @@ MY_NAME = os.path.splitext(os.path.basename(__file__))[0]
 # Only really handy for dev work on this tool.
 DELETE_TEMP_FILE = True
 
-# This controls whether the same temp file is used each run or not.
-#
-# Originally the original file path was threaded through to the compile call so
-# it would show up in stack traces nicely, even though the file holding the
-# actual code was off in a temp file.  However, that feeds into inspect and
-# showing lines of source.  The original file on disk is in a different state
-# than what exists transiently in the editor buffer (and the temp file), so
-# inspect.getsourcefile was picking up the wrong thing.
-#
-# Similarly, if you reuse the same filename for each run and then only partially
-# evaluate the source (e.g. via a selection), live objects in Maya will be
-# pointing to old copies of the code and source file references, which makes
-# stack traces less than truthful.  I don't think there's much to be done in
-# that case, and it's just something to be aware of.  Getting full, reliable,
-# and correct traces requires re-evaluation of all affected code, so it's a
-# trade-off between handy partial evaluation and rebuilding the world?
-REUSE_TEMP_FILE = False
-
-MAYA_BUFFER_SIZE = 4096
-
-EVAL_COMMAND_TEMPLATE = '''
-import __main__
-import datetime
-import sys
-import maya.cmds
-import maya.mel
-try:
-    nowStr = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    execLine = f'# {my_name} {{nowStr}}'
-    trailingHashes = '#' * max(0, 80 - len(execLine))
-    maya.cmds.undoInfo(openChunk=True, chunkName="Sublime Code Eval")
-    if '{syntax}' == 'python':
-        with open("{code_filepath}") as fp:
-            source = fp.read()
-        code = compile(source, "{code_filepath}", 'exec')
-        exec(code, __main__.__dict__, __main__.__dict__)
-    else:
-        maya.mel.eval('rehash; source "{code_filepath}"')
-    msg = f'<span style="color:rgb(255,192,192)">{{nowStr}}: Evaluated Sublime code</span>'
-    maya.cmds.inViewMessage(statusMessage=msg, fade=True, fadeInTime=0, fadeStayTime=500, fadeOutTime=500)
-    # Hack to forces inViewMessage to show when Maya window doesn't have focus
-    maya.cmds.setFocus('MayaWindow')
-except Exception as ex:
-    # Directly call excepthook, as raising from this code seems to get swallowed
-    # by Maya somehow.  Not using traceback because there might be a custom
-    # exception hook installed that is better than that.
-    sys.excepthook(*sys.exc_info())
-finally:
-    maya.cmds.undoInfo(closeChunk=True)
-    if {should_delete}:
-        # Make Maya delete the file itself to avoid race condition of
-        # deleting the file before Maya has read it.
-        try:
-            os.unlink("{code_filepath}")
-        except:
-            pass
-'''
-
-# todo: print "None" if expr is None
-# todo: printing cmds.getAttr('gameExporterPreset1.convertNurbsSurfaceTo') fails (quoting issue?)
-
-PRINT_COMMAND_TEMPLATE = '''
-import __main__
-try:
-    code = compile('print("{expr} =", repr({expr}))', "<string>", 'exec')
-    exec(code, __main__.__dict__, __main__.__dict__)
-except:
-    print('Error printing "{expr}"')
-'''
-
-eval_buffer = {}
+EVAL_BUFFER = {}
 
 
 def error(msg):
@@ -104,13 +34,101 @@ def error(msg):
 
 
 def escape_filepath(filepath):
-    return filepath.replace('\\', '\\\\')
+    return filepath.replace('\\', '/')
 
 
 class MayaCommand(sublime_plugin.TextCommand):
+    MAYA_BUFFER_SIZE = 4096
+
+    EVAL_COMMAND_TEMPLATE = textwrap.dedent('''
+        import __main__
+        import datetime
+        import sys
+        import maya.cmds
+        import maya.mel
+        try:
+            nowStr = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            execLine = f'# {my_name} {{nowStr}}'
+            trailingHashes = '#' * max(0, 80 - len(execLine))
+            maya.cmds.undoInfo(openChunk=True, chunkName="Sublime Code Eval")
+            if '{syntax}' == 'python':
+                with open("{code_filepath}") as fp:
+                    source = fp.read()
+                code = compile(source, "{code_filepath}", 'exec')
+                exec(code, __main__.__dict__, __main__.__dict__)
+            else:
+                maya.mel.eval('rehash; source "{code_filepath}"')
+            msg = f'<span style="color:rgb(255,192,192)">{{nowStr}}: Evaluated Sublime code</span>'
+            maya.cmds.inViewMessage(statusMessage=msg, fade=True, fadeInTime=0, fadeStayTime=500, fadeOutTime=500)
+            # Hack to forces inViewMessage to show when Maya window doesn't have focus
+            maya.cmds.setFocus('MayaWindow')
+        except Exception as ex:
+            # Directly call excepthook, as raising from this code seems to get swallowed
+            # by Maya somehow.  Not using traceback because there might be a custom
+            # exception hook installed that is better than that.
+            sys.excepthook(*sys.exc_info())
+        finally:
+            maya.cmds.undoInfo(closeChunk=True)
+            if {should_delete}:
+                # Make Maya delete the file itself to avoid race condition of
+                # deleting the file before Maya has read it.
+                try:
+                    os.unlink("{code_filepath}")
+                except:
+                    pass
+    ''')
+
+    def eval_code_in_maya(self, syntax, code_gen_iterator):
+        # Always use a file on disk to run in Maya, so the command port buffer doesn't
+        # have to be huge, we don't have to worry about escaping all quotes, etc.
+        # If current view is not dirty, use that file, otherwise use a temp file that
+        # will be cleaned up after running.
+
+        file_no, code_filepath = tempfile.mkstemp(prefix=f'{MY_NAME}_temp_', suffix='.txt', text=True)
+        try:
+            for text in code_gen_iterator:
+                os.write(file_no, text.encode(encoding='utf-8'))
+        finally:
+            os.close(file_no)
+
+        should_delete = DELETE_TEMP_FILE
+        code_filepath = escape_filepath(code_filepath)
+        command = self.EVAL_COMMAND_TEMPLATE.format(
+            my_name=MY_NAME,
+            syntax=syntax,
+            code_filepath=code_filepath,
+            should_delete=should_delete,
+        )
+
+        try:
+            self.send_to_maya(command)
+        except:
+            if should_delete:
+                try:
+                    os.remove(code_filepath)
+                except:
+                    pass
+            raise
+
+
+    def get_settings(self):
+        settingsPath = f'{MY_NAME}.sublime-settings'
+        return sublime.load_settings(settingsPath)
+
+
+    def get_syntax(self):
+        syntax = os.path.splitext(os.path.basename(self.view.settings().get('syntax')))[0].lower()
+        if 'python' in syntax:
+            return 'python'
+        elif 'mel' in syntax:
+            return 'mel'
+        else:
+            return None
+
+
     def send_to_maya(self, command):
         commandBytes = command.encode(encoding='utf-8')
-        if len(commandBytes) > MAYA_BUFFER_SIZE:
+        if len(commandBytes) > self.MAYA_BUFFER_SIZE:
             error("Command too large, and I'm too lazy to handle this case right now.")
             return
 
@@ -130,21 +148,6 @@ class MayaCommand(sublime_plugin.TextCommand):
                 sock.close()
 
 
-    def get_settings(self):
-        settingsPath = f'{MY_NAME}.sublime-settings'
-        return sublime.load_settings(settingsPath)
-
-
-    def get_syntax(self):
-        syntax = os.path.splitext(os.path.basename(self.view.settings().get('syntax')))[0].lower()
-        if 'python' in syntax:
-            return 'python'
-        elif 'mel' in syntax:
-            return 'mel'
-        else:
-            return None
-
-
 class EvalInMayaCommand(MayaCommand):
     def run(self, edit, eval_source='selection'):
         syntax = self.get_syntax()
@@ -155,30 +158,7 @@ class EvalInMayaCommand(MayaCommand):
         assert isinstance(eval_source, str)
         eval_source = EvalSource.fromString(eval_source)
 
-        # Always use a file on disk to run in Maya, so the command port buffer doesn't
-        # have to be huge, we don't have to worry about escaping all quotes, etc.
-        # If current view is not dirty, use that file, otherwise use a temp file that
-        # will be cleaned up after running.
-
-        code_filepath, is_temp = self._get_code_filepath(eval_source)
-        should_delete = is_temp and DELETE_TEMP_FILE
-        code_filepath = escape_filepath(code_filepath)
-        command = EVAL_COMMAND_TEMPLATE.format(
-            my_name=MY_NAME,
-            syntax=syntax,
-            code_filepath=code_filepath,
-            should_delete=should_delete,
-        )
-
-        try:
-            self.send_to_maya(command)
-        except:
-            if should_delete:
-                try:
-                    os.remove(code_filepath)
-                except:
-                    pass
-            raise
+        self.eval_code_in_maya(syntax, self._get_eval_chunks(eval_source))
 
 
     def is_enabled(self):
@@ -186,35 +166,10 @@ class EvalInMayaCommand(MayaCommand):
         return syntax is not None
 
 
-    def _get_code_filepath(self, eval_source):
-        """Returns a tuple of (filepath, is_temp)
-        """
-
-        # TODO: richerr in maya doesn't seem to be picking up changes to files on disk, so always
-        # write out temp file.  repro:
-        # eval saved py.py
-        # edit py.py to raise
-        # eval py.py without saving
-        # save py.py and eval again... this run will show the old py.py lines
-
-        if REUSE_TEMP_FILE:
-            code_filepath = os.path.join(tempfile.gettempdir(), MY_NAME)
-            file_no = os.open(code_filepath, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
-        else:
-            file_no, code_filepath = tempfile.mkstemp(prefix=f'{MY_NAME}_temp_', suffix='.txt', text=True)
-        try:
-            for chunk in self._get_eval_chunks(eval_source):
-                os.write(file_no, chunk.encode(encoding='utf-8'))
-        finally:
-            os.close(file_no)
-        is_temp = True
-        return code_filepath, is_temp
-
-
     def _get_eval_chunks(self, eval_source):
         if eval_source == EvalSource.eval_buffer:
             syntax = self.get_syntax()
-            buffer = eval_buffer.get(syntax)
+            buffer = EVAL_BUFFER.get(syntax)
             if buffer:
                 yield buffer
             return
@@ -227,19 +182,6 @@ class EvalInMayaCommand(MayaCommand):
 
         lines_written = -1
         for eval_region in eval_regions:
-            ## dedents, but doesn't preserve line numbering
-            # region_text = self.view.substr(eval_region)
-            # yield textwrap.dedent(region_text)
-
-            ## preserves line numbering, but doesn't dedent
-            # region_start_line = self.view.rowcol(eval_region.begin())[0]
-            # for region_line in self.view.split_by_newlines(eval_region):
-            #     lineno = self.view.rowcol(region_line.begin())[0]
-            #     for ii in range(lineno - lines_written):
-            #         yield '\n'
-            #     lines_written = lineno
-            #     yield self.view.substr(region_line)
-
             # Attempts to take each chunk of selected text, dedent it to
             # remove excess leading whitespace and make it syntactically
             # correct Python, and preserve original line numbers to make
@@ -268,10 +210,19 @@ class SetMayaEvalBufferCommand(MayaCommand):
             return
         region = selected_regions[0]
         text = textwrap.dedent(self.view.substr(region))
-        eval_buffer[syntax] = textwrap.dedent(self.view.substr(region))
+        EVAL_BUFFER[syntax] = textwrap.dedent(self.view.substr(region))
 
 
 class PrintInMayaCommand(MayaCommand):
+    PRINT_COMMAND_TEMPLATE = textwrap.dedent('''
+        try:
+            res = eval("""{expr}""")
+        except Exception as ex:
+            print('Error evaluating expression:', ex)
+        else:
+            print(f"{expr} =", repr(res))
+    ''')
+
     def run(self, edit):
         syntax = self.get_syntax()
         if syntax != 'python':
@@ -286,5 +237,47 @@ class PrintInMayaCommand(MayaCommand):
                 continue
             if '\n' in expr:
                 continue
-            command = PRINT_COMMAND_TEMPLATE.format(expr=expr)
-            self.send_to_maya(command)
+            command = self.PRINT_COMMAND_TEMPLATE.format(expr=expr)
+            self.eval_code_in_maya(syntax, [command])
+
+
+class ReloadModuleInMayaCommand(MayaCommand):
+    RELOAD_COMMAND_TEMPLATE = textwrap.dedent('''
+        import importlib
+        import {package_path}
+        importlib.reload({package_path})
+        print('Reloaded {package_path}')
+    ''')
+
+    def run(self, edit):
+        syntax = self.get_syntax()
+        if syntax != 'python':
+            error("Current file syntax must be Python.")
+            return
+
+        file_path = self.view.file_name()
+        if not file_path:
+            error("Module file must be on disk to be reloaded.")
+            return
+
+        if self.view.is_dirty():
+            self.view.run_command('save')
+
+        package_path = self.find_module_package_path(file_path)
+        code = self.RELOAD_COMMAND_TEMPLATE.format(package_path=package_path)
+        self.eval_code_in_maya(syntax, [code])
+
+
+    def find_module_package_path(self, file_path):
+        dir_path, file_name = os.path.split(file_path)
+        module_name, _ = os.path.splitext(file_name)
+        package_path_parts = [module_name]
+        while True:
+            init_path = os.path.join(dir_path, '__init__.py')
+            if os.path.isfile(init_path):
+                dir_path, dir_name = os.path.split(dir_path)
+                package_path_parts.append(dir_name)
+            else:
+                break
+        package_path = '.'.join(reversed(package_path_parts))
+        return package_path

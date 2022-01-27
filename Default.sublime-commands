@@ -1,3 +1,4 @@
 [
 	{ "caption": "Set Maya Eval Buffer", "command": "set_maya_eval_buffer" },
+	{ "caption": "Reload module in Maya", "command": "reload_module_in_maya" },
 ]
