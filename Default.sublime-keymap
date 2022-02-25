@@ -176,4 +176,7 @@
 		]
 	},
 	{ "keys": ["ctrl+d"], "command": "find_under_expand" },
+
+	// Package: sublime-black
+	{ "keys": ["ctrl+shift+k"], "command": "black" },
 ]
