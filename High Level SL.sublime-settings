@@ -3,5 +3,8 @@
 	[
 		"shader",
 		"cginc",
+        // Unreal file extensions
+		"ush",
+		"usf",
 	],
 }
