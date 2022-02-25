@@ -29,6 +29,7 @@
 		".svn"
 	],
 	"font_face": "Monospace",
+	// for reference after zooming: my font_size should be 10
 	"font_size": 10,
 	"hide_new_tab_button": true,
 	"hardware_acceleration": "opengl",
@@ -61,6 +62,7 @@
 	"show_encoding": true,
 	"show_full_path": true,
 	"show_line_endings": true,
+	"show_project_first": true,
 	"show_tab_close_buttons": false,
 	"spell_check": true,
 	"theme": "Default.sublime-theme",
