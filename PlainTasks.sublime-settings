@@ -1,7 +1,7 @@
 {
-	"color_scheme": "Packages/PlainTasks/tasks-gray.hidden-tmTheme",
-	// "color_scheme": "Packages/PlainTasks/tasks-solarized-light.hidden-tmTheme",
-	// "color_scheme": "Packages/PlainTasks/tasks.hidden-tmTheme",
+	"before_tasks_bullet_margin": 0,
+	"color_scheme": "Packages/User/PlainTasks.hidden-color-scheme",
+	"done_tasks_bullet": "✓",
 	"line_numbers": true,
 	"match_brackets": true,
 }

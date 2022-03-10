@@ -1,0 +1,112 @@
+{
+    "variables":
+    {
+        "task_pending": "rgba(0, 0, 0, 1.0)",
+        "task_completed": "rgba(0, 0, 0, 0.4)",
+        "task_cancelled": "rgba(128, 0, 0, 0.4)",
+    },
+    "globals":
+    {
+        "line_highlight": "rgba(0, 0, 0, 0.06))",
+        "foreground": "rgba(0, 0, 0, 0.6)",
+        "background": "rgb(255, 255, 255)",
+        "caret": "rgb(0, 0, 0)",
+        "selection": "rgb(186, 214, 253)",
+    },
+    "rules":
+    [
+        {
+            "scope": "wordhighlight",
+            "background": "rgba(255, 255, 0, 0.5)",
+            "foreground": "rgb(0, 0, 0)",
+        },
+
+        // Header:
+        {
+            "scope": "keyword.control.header.todo",
+            "foreground": "rgb(64, 64, 255)",
+            "font_style": "bold",
+        },
+
+        // Pending
+        {
+            "scope": "punctuation.definition.bullet.pending",
+            "foreground": "var(task_pending)",
+        },
+        {
+            "scope": "meta.item.todo.pending",
+            "foreground": "var(task_pending)",
+        },
+
+        // Completed
+        {
+            "scope": "punctuation.definition.bullet.completed",
+            "foreground": "var(task_completed)",
+        },
+        {
+            "scope": "meta.item.todo.completed",
+            "foreground": "var(task_completed)",
+            "font_style": "italic",
+        },
+        {
+            "scope": "meta.tag.todo.completed",
+            "foreground": "var(task_completed)",
+            "font_style": "italic",
+        },
+
+        // Cancelled
+        {
+            "scope": "punctuation.definition.bullet.cancelled",
+            "foreground": "var(task_cancelled)",
+        },
+        {
+            "scope": "meta.item.todo.cancelled",
+            "foreground": "var(task_cancelled)",
+            "font_style": "italic",
+        },
+        {
+            "scope": "meta.tag.todo.cancelled",
+            "foreground": "var(task_cancelled)",
+            "font_style": "italic",
+        },
+
+        // Separators
+        {
+            "scope": "meta.punctuation.separator.todo",
+            "foreground": "rgba(64, 64, 192, 1.0)",
+            "background": "rgba(64, 64, 192, 0.15)",
+        },
+        {
+            "scope": "meta.punctuation.archive.todo",
+            "foreground": "rgb(0, 0, 0)",
+        },
+
+        // @tags
+        {
+            "scope": "meta.tag.todo",
+            "foreground": "rgba(128, 128, 255, 0.8)",
+            "font_style": "bold",
+        },
+        {
+            "scope": "string.other.tag.todo.today",
+            "foreground": "rgb(255, 0, 0)",
+            "background": "rgba(255, 0, 0, 0.25)",
+            "font_style": "bold",
+        },
+        {
+            "scope": "string.other.tag.todo.critical",
+            "foreground": "rgba(255, 0, 0, 0.95)",
+            "background": "rgba(255, 0, 0, 0.2)",
+        },
+        {
+            "scope": "string.other.tag.todo.high",
+            "foreground": "rgba(192, 64, 0, 0.75)",
+            "background": "rgba(255, 128, 0, 0.25)",
+        },
+        {
+            "scope": "string.other.tag.todo.low",
+            "foreground": "rgba(192, 128, 0, 0.75)",
+            "background": "rgba(255, 192, 0, 0.25)",
+        },
+    ]
+}
