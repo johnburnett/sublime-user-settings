@@ -4,4 +4,5 @@
 	"done_tasks_bullet": "✓",
 	"line_numbers": true,
 	"match_brackets": true,
+	"word_wrap": true,
 }
