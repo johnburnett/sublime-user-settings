@@ -74,6 +74,7 @@
 	// Random
 	{ "keys": ["ctrl+alt+c"], "command": "copy_entire_buffer" },
 	{ "keys": ["ctrl+alt+v"], "command": "paste_entire_buffer" },
+	{ "keys": ["ctrl+0"], "command": "default_font_size" },
 
 	// might want this to combat more aggressive auto-complete popup in sublime 4
 	// { "keys": ["down"], "command": "hide_auto_complete", "context":

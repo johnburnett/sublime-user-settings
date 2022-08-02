@@ -29,8 +29,8 @@
 		".svn"
 	],
 	"font_face": "Monospace",
-	// for reference after zooming: my font_size should be 10
 	"font_size": 10,
+	"font_size_default": 10,
 	"hide_new_tab_button": true,
 	"hardware_acceleration": "opengl",
 	"highlight_line": true,
