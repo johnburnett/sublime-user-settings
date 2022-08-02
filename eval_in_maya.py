@@ -61,7 +61,7 @@ class MayaCommand(sublime_plugin.TextCommand):
             msg = f'<span style="color:rgb(255,192,192)">{{nowStr}}: Evaluated Sublime code</span>'
             maya.cmds.inViewMessage(statusMessage=msg, fade=True, fadeInTime=0, fadeStayTime=500, fadeOutTime=500)
             # Hack to forces inViewMessage to show when Maya window doesn't have focus
-            maya.cmds.setFocus('MayaWindow')
+            # maya.cmds.setFocus('MayaWindow')
         except Exception as ex:
             # Directly call excepthook, as raising from this code seems to get swallowed
             # by Maya somehow.  Not using traceback because there might be a custom
@@ -271,7 +271,9 @@ class ReloadModuleInMayaCommand(MayaCommand):
     def find_module_package_path(self, file_path):
         dir_path, file_name = os.path.split(file_path)
         module_name, _ = os.path.splitext(file_name)
-        package_path_parts = [module_name]
+        package_path_parts = []
+        if module_name != "__init__":
+            package_path_parts.append(module_name)
         while True:
             init_path = os.path.join(dir_path, '__init__.py')
             if os.path.isfile(init_path):
