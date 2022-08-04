@@ -216,11 +216,11 @@ class SetMayaEvalBufferCommand(MayaCommand):
 class PrintInMayaCommand(MayaCommand):
     PRINT_COMMAND_TEMPLATE = textwrap.dedent('''
         try:
-            res = eval("""{expr}""")
+            __eval_in_maya_result = eval("""{expr}""")
         except Exception as ex:
             print('Error evaluating expression:', ex)
         else:
-            print(f"{expr} =", repr(res))
+            print(f"{expr} =", repr(__eval_in_maya_result))
     ''')
 
     def run(self, edit):
