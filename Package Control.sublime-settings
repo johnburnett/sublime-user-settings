@@ -20,7 +20,6 @@
 	],
 	"repositories":
 	[
-		"https://github.com/johnburnett/SmartCursor",
 		"https://github.com/johnburnett/WordHighlight/tree/settings-tweaks",
 	],
 }
