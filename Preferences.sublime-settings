@@ -32,16 +32,12 @@
 	"font_size": 10,
 	"font_size_default": 10,
 	"hide_new_tab_button": true,
-	"hardware_acceleration": "opengl",
+	"hardware_acceleration": "none",
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
 		"Vintage",
-	],
-	"ignored_words":
-	[
-		"bfdlaunch"
 	],
 	"indent_guide_options":
 	[
