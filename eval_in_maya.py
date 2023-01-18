@@ -40,7 +40,8 @@ def escape_filepath(filepath):
 class MayaCommand(sublime_plugin.TextCommand):
     MAYA_BUFFER_SIZE = 4096
 
-    EVAL_COMMAND_TEMPLATE = textwrap.dedent('''
+    EVAL_COMMAND_TEMPLATE = textwrap.dedent(
+        '''
         import __main__
         import datetime
         import sys
@@ -76,7 +77,8 @@ class MayaCommand(sublime_plugin.TextCommand):
                     os.unlink("{code_filepath}")
                 except:
                     pass
-    ''')
+    '''
+    )
 
     def eval_code_in_maya(self, syntax, code_gen_iterator):
         # Always use a file on disk to run in Maya, so the command port buffer doesn't
@@ -84,7 +86,9 @@ class MayaCommand(sublime_plugin.TextCommand):
         # If current view is not dirty, use that file, otherwise use a temp file that
         # will be cleaned up after running.
 
-        file_no, code_filepath = tempfile.mkstemp(prefix=f'{MY_NAME}_temp_', suffix='.txt', text=True)
+        file_no, code_filepath = tempfile.mkstemp(
+            prefix=f'{MY_NAME}_temp_', suffix='.txt', text=True
+        )
         try:
             for text in code_gen_iterator:
                 os.write(file_no, text.encode(encoding='utf-8'))
@@ -110,11 +114,9 @@ class MayaCommand(sublime_plugin.TextCommand):
                     pass
             raise
 
-
     def get_settings(self):
         settingsPath = f'{MY_NAME}.sublime-settings'
         return sublime.load_settings(settingsPath)
-
 
     def get_syntax(self):
         syntax = os.path.splitext(os.path.basename(self.view.settings().get('syntax')))[0].lower()
@@ -124,7 +126,6 @@ class MayaCommand(sublime_plugin.TextCommand):
             return 'mel'
         else:
             return None
-
 
     def send_to_maya(self, command):
         commandBytes = command.encode(encoding='utf-8')
@@ -160,11 +161,9 @@ class EvalInMayaCommand(MayaCommand):
 
         self.eval_code_in_maya(syntax, self._get_eval_chunks(eval_source))
 
-
     def is_enabled(self):
         syntax = self.get_syntax()
         return syntax is not None
-
 
     def _get_eval_chunks(self, eval_source):
         if eval_source == EvalSource.eval_buffer:
@@ -213,15 +212,33 @@ class SetMayaEvalBufferCommand(MayaCommand):
         EVAL_BUFFER[syntax] = textwrap.dedent(self.view.substr(region))
 
 
+class PrintMayaEvalBufferCommand(MayaCommand):
+    def run(self, edit):
+        syntax = self.get_syntax()
+        buffer = EVAL_BUFFER.get(syntax, None)
+        if buffer:
+            print(
+                '# Maya eval buffer begin #######################################################'
+            )
+            print(buffer)
+            print(
+                '# Maya eval buffer end #########################################################'
+            )
+        else:
+            print('No buffer set for current syntax')
+
+
 class PrintInMayaCommand(MayaCommand):
-    PRINT_COMMAND_TEMPLATE = textwrap.dedent('''
+    PRINT_COMMAND_TEMPLATE = textwrap.dedent(
+        '''
         try:
             __eval_in_maya_result = eval("""{expr}""")
         except Exception as ex:
             print('Error evaluating expression:', ex)
         else:
             print(f"{expr} =", repr(__eval_in_maya_result))
-    ''')
+    '''
+    )
 
     def run(self, edit):
         syntax = self.get_syntax()
@@ -242,12 +259,14 @@ class PrintInMayaCommand(MayaCommand):
 
 
 class ReloadModuleInMayaCommand(MayaCommand):
-    RELOAD_COMMAND_TEMPLATE = textwrap.dedent('''
+    RELOAD_COMMAND_TEMPLATE = textwrap.dedent(
+        '''
         import importlib
         import {package_path}
         importlib.reload({package_path})
         print('Reloaded {package_path}')
-    ''')
+    '''
+    )
 
     def run(self, edit):
         syntax = self.get_syntax()
@@ -266,7 +285,6 @@ class ReloadModuleInMayaCommand(MayaCommand):
         package_path = self.find_module_package_path(file_path)
         code = self.RELOAD_COMMAND_TEMPLATE.format(package_path=package_path)
         self.eval_code_in_maya(syntax, [code])
-
 
     def find_module_package_path(self, file_path):
         dir_path, file_name = os.path.split(file_path)
