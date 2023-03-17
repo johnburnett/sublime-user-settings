@@ -1,5 +1,6 @@
 [
-	{ "caption": "Set Maya Eval Buffer", "command": "set_maya_eval_buffer" },
-	{ "caption": "Print Maya Eval Buffer", "command": "print_maya_eval_buffer" },
-	{ "caption": "Reload module in Maya", "command": "reload_module_in_maya" },
+	{ "caption": "Save Exec Scratch Buffer", "command": "save_exec_scratch_buffer" },
+	{ "caption": "Print Exec Scratch Buffer", "command": "print_exec_scratch_buffer" },
+	{ "caption": "Reload Module in Maya", "command": "reload_module_in_maya" },
+	{ "caption": "Reload Module in Blender", "command": "reload_module_in_blender" },
 ]

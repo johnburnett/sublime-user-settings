@@ -1,0 +1,4 @@
+{
+	"maya_port": 7111, // Assumed to be opened with sourceType='python'
+	"blender_port": 7112,
+}

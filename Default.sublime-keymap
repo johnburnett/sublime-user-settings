@@ -83,48 +83,31 @@
 	//  ]
 	// },
 
-	// eval_in_maya
+	// exec_remote
 	{ 
 		"keys": ["ctrl+enter"], 
-		"command": "eval_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+		"command": "exec_in_blender",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}],
 	},
 	{ 
-		"keys": ["ctrl+keypad_enter"], 
-		"command": "eval_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+		"keys": ["ctrl+enter"], 
+		"command": "exec_in_maya",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}],
 	},
 	{ 
 		"keys": ["ctrl+alt+enter"], 
-		"command": "eval_in_maya",
-		"args": {"eval_source": "eval_buffer"},
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+		"command": "exec_scratch_buffer_in_blender",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}],
 	},
 	{ 
 		"keys": ["ctrl+shift+enter"], 
-		"command": "print_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
+		"command": "print_selected_values_in_blender",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}],
 	},
 	{ 
-		"keys": ["ctrl+shift+keypad_enter"], 
-		"command": "print_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}]
-	},
-	{ 
-		"keys": ["ctrl+enter"], 
-		"command": "eval_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
-	},
-	{ 
-		"keys": ["ctrl+alt+enter"], 
-		"command": "eval_in_maya",
-		"args": {"eval_source": "eval_buffer"},
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
-	},
-	{ 
-		"keys": ["ctrl+keypad_enter"], 
-		"command": "eval_in_maya",
-		"context": [{"key": "selector", "operator": "equal", "operand": "source.mel"}]
+		"keys": ["ctrl+alt+r"], 
+		"command": "reload_module_in_blender",
+		"context": [{"key": "selector", "operator": "equal", "operand": "source.python"}],
 	},
 
 	// Package: SmartCursor arrow key bindings
