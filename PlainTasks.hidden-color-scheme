@@ -8,7 +8,7 @@
     "globals":
     {
         "line_highlight": "rgba(0, 0, 0, 0.06))",
-        "foreground": "rgba(0, 0, 0, 0.6)",
+        "foreground": "rgba(0, 0, 0, 0.9)",
         "background": "rgb(255, 255, 255)",
         "caret": "rgb(0, 0, 0)",
         "selection": "rgb(186, 214, 253)",
@@ -73,8 +73,7 @@
         // Separators
         {
             "scope": "meta.punctuation.separator.todo",
-            "foreground": "rgba(64, 64, 192, 1.0)",
-            "background": "rgba(64, 64, 192, 0.15)",
+            "foreground": "rgba(64, 64, 255, 1.0)",
         },
         {
             "scope": "meta.punctuation.archive.todo",
