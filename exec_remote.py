@@ -72,7 +72,7 @@ EXEC_CODE_TEMPLATES = {
 PRINT_EXPR_TEMPLATES = {
     'python': textwrap.dedent('''
         try:
-            __eval_result = eval("""{expr}""")
+            __eval_result = eval("{expr}")
         except Exception as ex:
             print('Error evaluating expression:', ex)
         else:
@@ -239,6 +239,8 @@ def print_selected_values(view, send_code_func):
             continue
         if '\n' in expr:
             continue
+        expr = expr.replace('\\', '\\\\')
+        expr = expr.replace('"', '\\"')
         code = template.format(expr=expr)
         send_code_func(CodeBuffer(syntax, code))
 
