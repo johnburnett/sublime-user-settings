@@ -44,6 +44,7 @@
 		"draw_normal",
 		"draw_active"
 	],
+	"index_files": true,
 	"match_selection": false,
 	"mouse_wheel_switches_tabs": false,
 	"move_to_limit_on_up_down": false,
