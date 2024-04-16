@@ -18,8 +18,4 @@
 		"SmartCursor",
 		"WordHighlight",
 	],
-	"repositories":
-	[
-		"https://github.com/johnburnett/WordHighlight/tree/settings-tweaks",
-	],
 }
