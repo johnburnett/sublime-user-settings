@@ -88,7 +88,7 @@ class open_powershell_here(open_shell_here):
         return platform() == 'windows' and super(open_powershell_here, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
-        open_winterm('Windows PowerShell', dir_path)
+        open_winterm('PowerShell', dir_path)
 
 
 class open_file_browser_here(open_shell_here):
