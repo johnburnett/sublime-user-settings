@@ -1,0 +1,9 @@
+// These settings override both User and Default settings for the JSON syntax
+{
+    "extensions":
+    [
+        "webmanifest"
+    ],
+    "tab_size": 2,
+    "use_tab_stops": false,
+}
