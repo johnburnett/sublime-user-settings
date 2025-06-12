@@ -63,6 +63,10 @@ class per_host_settings(sublime_plugin.EventListener):
         return callbacks
 
     def on_activated(self, view):
+        # disable this for now... conflicting with ctrl-+ to adjust font size now, broke at some
+        # point on/before build 4199.
+        return
+
         # Apply once on startup, before the settings on_change callbacks
         # have a chance to run.
         callbacks = self.install_callbacks()
