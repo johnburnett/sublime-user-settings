@@ -35,7 +35,7 @@ def open_bash(dir_path):
                 pass
 
 
-class open_shell_here(sublime_plugin.ApplicationCommand):
+class open_shell_here(sublime_plugin.WindowCommand):
 
     def run(self):
         dir_path, file_name = self.get_dir_and_file()
@@ -97,15 +97,10 @@ class open_file_browser_here(open_shell_here):
         return (platform() in ('windows', 'linux')) and super(self.__class__, self).is_enabled()
 
     def open_shell(self, dir_path, file_name):
-        if platform() == 'windows':
-            explorer = os.path.join(os.environ['SYSTEMROOT'], 'explorer.exe')
-            if file_name:
-                file_path = os.path.join(dir_path, file_name)
-                subprocess.Popen([explorer, '/select,', file_path])
-            else:
-                subprocess.Popen([explorer, dir_path])
-        elif platform() == 'linux':
+        if platform() == 'linux':
             subprocess.Popen(['nemo', dir_path])
+        else:
+            self.window.run_command('open_dir', {'dir': dir_path, 'file': file_name})
 
 
 class open_bash_here(open_shell_here):
