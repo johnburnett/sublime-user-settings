@@ -25,6 +25,7 @@ def open_bash(dir_path):
     if platform() == 'windows':
         open_winterm('git bash', dir_path)
     elif platform() == 'linux':
+        cmds.append(['/usr/bin/konsole', '--workdir', dir_path])
         cmds.append(['/usr/bin/tilix', '--working-directory', dir_path])
         cmds.append(['/usr/bin/gnome-terminal', '--working-directory', dir_path])
         for cmd in cmds:

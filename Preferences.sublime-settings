@@ -29,8 +29,8 @@
 		".svn"
 	],
 	"font_face": "Monospace",
-	"font_size": 10,
-	"font_size_default": 10,
+	"font_size": 9,
+	"font_size_default": 9,
 	"hide_new_tab_button": true,
 	"hardware_acceleration": "none",
 	"highlight_line": true,
