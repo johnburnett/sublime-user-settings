@@ -99,7 +99,7 @@ class open_file_browser_here(open_shell_here):
 
     def open_shell(self, dir_path, file_name):
         if platform() == 'linux':
-            subprocess.Popen(['nemo', dir_path])
+            subprocess.Popen(['dolphin', '--new-window', '--select', os.path.join(dir_path, file_name)])
         else:
             self.window.run_command('open_dir', {'dir': dir_path, 'file': file_name})
 
