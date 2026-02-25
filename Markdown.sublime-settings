@@ -1,0 +1,5 @@
+// These settings override both User and Default settings for the Markdown syntax
+{
+  "word_wrap": "auto",
+  "wrap_width": 100,
+}
