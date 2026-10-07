@@ -2,6 +2,7 @@
 {
     "extensions":
     [
+        "nsp",
         "webmanifest"
     ],
     "tab_size": 2,
